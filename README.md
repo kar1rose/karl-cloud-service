@@ -1,2 +1,5 @@
 # rose-cloud-pro
-占个坑
+
+`spring cloud alibaba` + `dubbo` 整合
+
+`nacos`注册中心

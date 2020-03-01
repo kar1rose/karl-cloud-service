@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: service-gateway
+  cloud:
+    nacos:
+      config:
+        server-addr: 139.224.83.117:8848
+        file-extension: yaml
+      discovery:
+        server-addr: 139.224.83.117:8848
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8849
+      eager: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: service-consumer-sys
+          uri: lb://service-consumer-sys
+          predicates:
+            - Method=GET,POST
+            - Path=/api-c/**
+          filters:
+            - StripPrefix=1
+        - id: service-provider-sys
+          uri: lb://service-provider-sys
+          predicates:
+            - Method=GET,POST
+            - Path=/api-s/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: 9000
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
