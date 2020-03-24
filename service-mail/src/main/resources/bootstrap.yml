@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: service-mail
+  cloud:
+    nacos:
+      config:
+        server-addr: 139.224.83.117:8848
+        file-extension: yaml
+      discovery:
+        server-addr: 139.224.83.117:8848
+  mail:
+    host: smtp.qq.com
+    username: kar1rose@qq.com
+    password: fjxgxywqbdaacahf
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+#        debug: true
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
