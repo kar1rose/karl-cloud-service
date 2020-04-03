@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class SysServiceFallback implements SysService {
+public class SysServiceFallbackImpl implements SysService {
 
     @Override
     public String say(String name) {

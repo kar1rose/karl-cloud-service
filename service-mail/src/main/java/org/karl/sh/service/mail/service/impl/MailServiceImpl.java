@@ -1,12 +1,11 @@
 package org.karl.sh.service.mail.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.karl.sh.service.mail.KService;
 import org.karl.sh.service.mail.service.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -15,7 +14,7 @@ import javax.annotation.Resource;
  * @Date: 2020/3/24 13:00
  **/
 @Slf4j
-@Component
+@KService
 public class MailServiceImpl implements MailService {
 
     @Resource
