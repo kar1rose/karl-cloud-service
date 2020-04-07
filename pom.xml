@@ -13,6 +13,7 @@
         <module>service-provider-sys</module>
         <module>service-consumer-sys</module>
         <module>service-gateway</module>
+        <module>netty-server</module>
     </modules>
 
     <parent>
