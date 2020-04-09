@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.NoSuchFileException;
 
 /**
@@ -29,6 +30,7 @@ public class CustomBufferDemo {
         try {
             File srcFile = new File("D:/test.txt");
             File destFile = new File("D:/dest2.txt");
+            StringBuffer sb = new StringBuffer();
 
             if (!srcFile.exists()) {
                 throw new NoSuchFileException("no such file >>>" + srcFile.getName());
@@ -43,9 +45,13 @@ public class CustomBufferDemo {
                 fos = new FileOutputStream(destFile);
 
                 byte[] bytes = new byte[1024];
-                while (fis.read(bytes) != -1) {
-                    fos.write(bytes);
+                int length = -1;
+                while ((length=fis.read(bytes)) != -1) {
+                    sb.append(new String(bytes,0,length, StandardCharsets.UTF_8));
                 }
+
+                byte []b=sb.toString().getBytes();
+                fos.write(b);
 
             } else {
                 log.error("file {} create failed", destFile.getName());
