@@ -4,12 +4,16 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.RandomAccessFile;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
 /**
  * socket channel 发送文件
@@ -20,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class NioSendClient {
 
-    private final Charset charset = StandardCharsets.UTF_8;
+    private final CharsetEncoder encoder = StandardCharsets.UTF_8.newEncoder();
 
     public void sendFile(String src, String dest) {
         try {
@@ -38,18 +42,21 @@ public class NioSendClient {
             while (!socketChannel.finishConnect()) {
                 log.info("正在连接>>>");
             }
-            log.info(">>>连接成功>>>");
-            ByteBuffer fileNameByteBuffer = charset.encode(dest);
+            log.info("===连接成功===");
+            //1.传输文件名
+            ByteBuffer fileNameByteBuffer = StandardCharsets.UTF_8.encode(dest);
             socketChannel.write(fileNameByteBuffer);
+            //2.传输文件大小
             ByteBuffer buffer = ByteBuffer.allocate(NioConstants.BUFFER_SIZE);
             buffer.putLong(srcFile.length());
             buffer.flip();
             socketChannel.write(buffer);
             buffer.clear();
-            log.info("开始传输>>>");
-            int length = 0;
+
+            log.info(">>>开始传输<<<");
+            int length;
             long progress = 0;
-            while ((length = fileChannel.write(buffer)) > 0) {
+            while ((length = fileChannel.read(buffer)) > 0) {
                 buffer.flip();
                 socketChannel.write(buffer);
                 buffer.clear();
@@ -57,20 +64,20 @@ public class NioSendClient {
                 log.info("|" + (100 * progress / srcFile.length()) + "%|");
             }
             if (length == -1) {
+                log.info("===文件传输结束===");
                 fileChannel.close();
-                //发送结束标志
                 socketChannel.shutdownOutput();
                 socketChannel.close();
             }
             log.info("===文件传输成功===");
-
         } catch (Exception e) {
-            log.error(e.getMessage());
+            e.printStackTrace();
         }
+
     }
 
     public static void main(String[] args) {
-        new NioSendClient().sendFile("","");
+        new NioSendClient().sendFile("D:/安装包/test.txt", UUID.randomUUID().toString() + ".txt");
     }
 
 }
