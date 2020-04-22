@@ -1,7 +1,5 @@
 package org.karl.service.provider.sys.controller;
-/**
- * Created by KARL_ROSE on 2020/2/29 9:54
- */
+
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *  SysController
+ * SysController
+ *
  * @author ROSE
  * @date 2020/2/29 09:54
- *
  **/
 @RestController
 @RequestMapping("/sys")

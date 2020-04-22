@@ -7,9 +7,9 @@
         <artifactId>rose-cloud-alibaba</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>service-provider-sys</artifactId>
+    <artifactId>service-provider</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>service-provider-sys</name>
+    <name>service-provider</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

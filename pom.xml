@@ -10,8 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>service-provider-sys</module>
-        <module>service-consumer-sys</module>
+        <module>service-provider</module>
+        <module>service-consumer</module>
         <module>service-gateway</module>
         <module>netty-server</module>
         <module>service-mail</module>
