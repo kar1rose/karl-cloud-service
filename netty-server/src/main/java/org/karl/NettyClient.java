@@ -14,8 +14,8 @@ import org.karl.handler.CustomNettyHandler;
 import java.net.InetSocketAddress;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/4/7 11:28
+ * @author KARL ROSE
+ * @date 2020/4/7 11:28
  **/
 @Slf4j
 public class NettyClient {

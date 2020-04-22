@@ -1,8 +1,8 @@
 package org.karl.tree;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/4/9 15:09
+ * @author KARL ROSE
+ * @date 2020/4/9 15:09
  **/
 public class BinarySearchTree<E extends Comparable<E>> {
 

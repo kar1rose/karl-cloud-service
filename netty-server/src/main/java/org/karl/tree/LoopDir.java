@@ -6,8 +6,8 @@ import java.io.File;
 import java.util.List;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/4/9 14:28
+ * @author KARL ROSE
+ * @date 2020/4/9 14:28
  **/
 @Slf4j(topic = "遍历目录")
 public class LoopDir {

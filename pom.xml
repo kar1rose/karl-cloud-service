@@ -14,6 +14,8 @@
         <module>service-consumer-sys</module>
         <module>service-gateway</module>
         <module>netty-server</module>
+        <module>service-mail</module>
+        <module>nio-demo</module>
     </modules>
 
     <parent>
@@ -69,7 +71,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.2</version>
+<!--            <version>1.18.12</version>-->
             <optional>true</optional>
         </dependency>
 

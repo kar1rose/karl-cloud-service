@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * @ClassName SysController
- * @Author ROSE
- * @Date 2020/2/29 10:02
- * @Description
+ *  SysController
+ * @author ROSE
+ * @date 2020/2/29 10:02
+ *
  **/
 @RestController
 public class SysController {

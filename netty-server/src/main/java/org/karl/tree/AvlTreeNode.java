@@ -1,8 +1,8 @@
 package org.karl.tree;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/4/10 17:46
+ * @author KARL ROSE
+ * @date 2020/4/10 17:46
  **/
 public class AvlTreeNode<E extends Comparable<E>> {
 

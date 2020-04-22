@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import java.lang.annotation.*;
 
 /**
- * @Author KARL.ROSE
- * @Date 2020/3/24 8:14 下午
+ * @author KARL.ROSE
+ * @date 2020/3/24 8:14 下午
  **/
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
