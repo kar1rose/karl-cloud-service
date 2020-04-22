@@ -18,6 +18,12 @@ public class LoopDir {
         loop(file, level);
     }
 
+    /**
+     * @param file
+     * @param level
+     * @Author KARL.ROSE
+     * @Date 2020/4/22 10:54 上午
+     **/
     private static void loop(File file, Integer level) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < level; i++) {
