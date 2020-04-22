@@ -1,8 +1,8 @@
 package org.karl.tree;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/4/9 14:45
+ * @author KARL ROSE
+ * @date 2020/4/9 14:45
  **/
 public class KarlTreeNode<E> {
 

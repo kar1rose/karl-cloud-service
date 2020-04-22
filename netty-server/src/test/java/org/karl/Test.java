@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.*;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/4/7 17:41
+ * @author KARL ROSE
+ * @date 2020/4/7 17:41
  **/
 @Slf4j
 public class Test {

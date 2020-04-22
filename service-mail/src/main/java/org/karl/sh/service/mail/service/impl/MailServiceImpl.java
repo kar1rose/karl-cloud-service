@@ -10,8 +10,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import javax.annotation.Resource;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/3/24 13:00
+ * @author KARL ROSE
+ * @date 2020/3/24 13:00
  **/
 @Slf4j
 @KService

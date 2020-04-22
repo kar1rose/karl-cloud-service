@@ -1,9 +1,9 @@
 package org.karl.sh.service.mail.service;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/3/24 12:59
- * @Description:
+ * @author KARL ROSE
+ * @date 2020/3/24 12:59
+ * :
  **/
 public interface MailService {
 

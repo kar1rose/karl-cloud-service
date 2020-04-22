@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @ClassName SysController
- * @Author ROSE
- * @Date 2020/2/29 09:54
- * @Description
+ *  SysController
+ * @author ROSE
+ * @date 2020/2/29 09:54
+ *
  **/
 @RestController
 @RequestMapping("/sys")

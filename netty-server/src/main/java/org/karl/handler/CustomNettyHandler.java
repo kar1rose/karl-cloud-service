@@ -8,8 +8,8 @@ import io.netty.handler.codec.http.*;
 import io.netty.util.AsciiString;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/4/7 11:35
+ * @author KARL ROSE
+ * @date 2020/4/7 11:35
  **/
 public class CustomNettyHandler extends ChannelInboundHandlerAdapter {
 
@@ -33,8 +33,8 @@ public class CustomNettyHandler extends ChannelInboundHandlerAdapter {
     /**
      * 读完
      *
-     * @Author KARL.ROSE
-     * @Date 2020/4/7 11:39 上午
+     * @author KARL.ROSE
+     * @date 2020/4/7 11:39 上午
      **/
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
@@ -44,8 +44,8 @@ public class CustomNettyHandler extends ChannelInboundHandlerAdapter {
     /**
      * 异常
      *
-     * @Author KARL.ROSE
-     * @Date 2020/4/7 11:39 上午
+     * @author KARL.ROSE
+     * @date 2020/4/7 11:39 上午
      **/
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {

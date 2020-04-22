@@ -8,8 +8,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
 
 /**
- * @Author: KARL ROSE
- * @Date: 2020/4/7 12:20
+ * @author KARL ROSE
+ * @date 2020/4/7 12:20
  **/
 public class CustomNettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
 

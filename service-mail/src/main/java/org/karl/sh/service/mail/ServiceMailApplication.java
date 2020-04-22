@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  *
- * @Author KARL.ROSE
- * @Date 2020/3/24 2:07 下午
+ * @author KARL.ROSE
+ * @date 2020/3/24 2:07 下午
  **/
 @SpringBootApplication
 public class ServiceMailApplication {

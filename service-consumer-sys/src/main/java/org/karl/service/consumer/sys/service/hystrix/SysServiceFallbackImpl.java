@@ -9,10 +9,10 @@ import org.karl.service.consumer.sys.service.SysService;
 import org.springframework.stereotype.Component;
 
 /**
- * @ClassName SysExceptionHandler
- * @Author ROSE
- * @Date 2020/2/29 10:11
- * @Description
+ *  SysExceptionHandler
+ * @author ROSE
+ * @date 2020/2/29 10:11
+ *
  **/
 
 @Slf4j

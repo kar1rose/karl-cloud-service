@@ -23,10 +23,10 @@ import java.net.InetSocketAddress;
 import java.util.Map;
 
 /**
- * @ClassName AuthFilter
- * @Author ROSE
- * @Date 2020/2/29 10:18
- * @Description
+ *  AuthFilter
+ * @author ROSE
+ * @date 2020/2/29 10:18
+ *
  **/
 @Slf4j
 @Component
