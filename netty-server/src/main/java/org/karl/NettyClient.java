@@ -6,10 +6,8 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
 import lombok.extern.slf4j.Slf4j;
 import org.karl.handler.CustomNettyClientHandler;
-import org.karl.handler.CustomNettyHandler;
 
 import java.net.InetSocketAddress;
 
