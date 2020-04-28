@@ -3,7 +3,6 @@ package org.karl.socket;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -11,7 +10,6 @@ import java.net.ServerSocket;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,10 +24,14 @@ import java.util.Map;
 @Slf4j(topic = "文件接收服务器")
 public class NioFileReceiveServer {
 
+    public static void main(String[] args) throws IOException {
+        NioFileReceiveServer server = new NioFileReceiveServer();
+        server.start();
+    }
 
-    private final CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder();
+    private final Charset charset = StandardCharsets.UTF_8;
 
-    private static final String DIR = "D:\\Users\\arvato";
+    private static final String ROOT = "/Users/arvato/data";
 
     static class Client {
         String fileName;
@@ -71,7 +73,6 @@ public class NioFileReceiveServer {
                 selectionKeys.remove();
             }
         }
-
     }
 
     private void dataHandler(SelectionKey key) throws IOException {
@@ -83,16 +84,16 @@ public class NioFileReceiveServer {
             while ((num = socketChannel.read(byteBuffer)) > 0) {
                 byteBuffer.flip();
                 if (client.fileName == null) {
-                    String fileName = decoder.decode(byteBuffer).toString();
+                    String fileName =  charset.decode(byteBuffer).toString();
                     log.info("传输文件名:{}", fileName);
-                    File dest = new File(DIR);
+                    File dest = new File(ROOT);
                     if (!dest.exists()) {
                         if (!dest.mkdir()) {
                             log.error("目录创建失败");
                         }
                     }
                     client.fileName = fileName;
-                    String target = dest.getAbsolutePath() + "\\" + fileName;
+                    String target = dest.getAbsolutePath() + "/" + fileName;
                     File file = new File(target);
                     log.info("文件保存路径:{}", file.getAbsolutePath());
                     if (!file.exists()) {
@@ -107,8 +108,8 @@ public class NioFileReceiveServer {
                     client.fileLength = byteBuffer.getLong();
                     log.info("传输文件大小:{}", client.fileLength);
                     client.startTime = System.currentTimeMillis();
+                    log.info("===服务端接收开始===");
                 } else {
-                    log.info("传输开始>>>");
                     client.fileChannel.write(byteBuffer);
                 }
                 byteBuffer.clear();
@@ -128,8 +129,5 @@ public class NioFileReceiveServer {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        NioFileReceiveServer server = new NioFileReceiveServer();
-        server.start();
-    }
+
 }
