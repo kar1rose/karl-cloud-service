@@ -1,6 +1,6 @@
-package org.karl.reactor;
+package org.karl.base.reactor;
 
-import org.karl.socket.NioConstants;
+import org.karl.base.socket.NioConstants;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;

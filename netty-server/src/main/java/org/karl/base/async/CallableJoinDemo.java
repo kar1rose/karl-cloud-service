@@ -1,4 +1,4 @@
-package org.karl.async;
+package org.karl.base.async;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,9 +55,9 @@ public class CallableJoinDemo {
         if (hot && cleanUp) {
             log.info("泡茶喝");
         } else if (!hot) {
-            log.error("烧水失败，喝茶失败");
+            log.error("水还没好");
         } else {
-            log.error("杯子洗不了，喝茶失败");
+            log.error("杯子还没洗干净");
         }
     }
 
@@ -76,6 +76,7 @@ public class CallableJoinDemo {
 
         Thread.currentThread().setName("泡茶主线程");
         try {
+            //线程异步阻塞
             boolean hot = hTask.get();
             boolean water = wTask.get();
             drink(hot, water);

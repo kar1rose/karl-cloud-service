@@ -20,7 +20,7 @@ public class LoopDir {
     /**
      * @param file
      * @param level
-     * @Author KARL.ROSE
+     * @author KARL.ROSE
      * @Date 2020/4/22 10:54 上午
      **/
     private static void loop(File file, Integer level) {

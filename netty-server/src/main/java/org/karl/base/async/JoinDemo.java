@@ -1,4 +1,4 @@
-package org.karl.async;
+package org.karl.base.async;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -58,6 +58,7 @@ public class JoinDemo {
         washThread.start();
         hotThread.start();
         try {
+            //thread同步阻塞
             washThread.join();
             log.info("等水烧开");
             hotThread.join();

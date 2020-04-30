@@ -15,7 +15,6 @@
         <module>service-gateway</module>
         <module>netty-server</module>
         <module>service-mail</module>
-        <module>nio-demo</module>
     </modules>
 
     <parent>

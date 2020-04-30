@@ -1,6 +1,7 @@
 package org.karl;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -19,7 +20,7 @@ import java.net.InetSocketAddress;
  * @date 2020/4/7 11:27
  **/
 @Slf4j
-public class NettyServer {
+public class KarlNettyServer {
 
     private static final int PORT = 8888;
 
@@ -64,13 +65,11 @@ public class NettyServer {
                                     .addLast(new CustomNettyHandler());*/
                         }
                     }).option(ChannelOption.SO_BACKLOG, 128)
-                    .childOption(ChannelOption.SO_KEEPALIVE, Boolean.TRUE);
-
-
-                    /*.childOption(ChannelOption.AUTO_READ, false);
+                    .childOption(ChannelOption.SO_KEEPALIVE, Boolean.TRUE)
+                    .childOption(ChannelOption.AUTO_READ, false);
             ChannelFuture f = serverBootstrap.bind().sync();
-            f.channel().closeFuture().sync();*/
-        }  finally {
+            f.channel().closeFuture().sync();
+        } finally {
             boos.shutdownGracefully().sync();
         }
 

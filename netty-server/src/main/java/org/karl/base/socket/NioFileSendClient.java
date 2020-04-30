@@ -1,4 +1,4 @@
-package org.karl.socket;
+package org.karl.base.socket;
 
 import lombok.extern.slf4j.Slf4j;
 
