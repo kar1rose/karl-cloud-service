@@ -9,6 +9,9 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpResponseEncoder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
@@ -35,7 +38,7 @@ public class NettyDiscardServer {
             //3.设置监听端口
             server.localAddress(new InetSocketAddress(PORT));
             //4.通道参数
-            server.option(ChannelOption.SO_KEEPALIVE, true);
+//            server.option(ChannelOption.SO_KEEPALIVE, true);
             server.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
             //5.装配子通道流水线
             server.childHandler(new ChannelInitializer<SocketChannel>() {
@@ -48,7 +51,7 @@ public class NettyDiscardServer {
                             /*.addLast("decoder", new HttpRequestDecoder())
                             .addLast("encoder", new HttpResponseEncoder())
                             .addLast("aggregator", new HttpObjectAggregator(512 * 1024))*/
-                            .addLast(new NettyServerDiscardHandler());
+                            .addLast(new NettyDiscardServerHandler());
                 }
             });
             //6.绑定服务器

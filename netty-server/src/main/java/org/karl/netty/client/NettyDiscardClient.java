@@ -8,8 +8,11 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.time.DateUtils;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -69,20 +72,20 @@ public class NettyDiscardClient {
             while (scanner.hasNext()) {
                 //获取输入的内容
                 String next = scanner.next();
-                byte[] bytes = (System.currentTimeMillis() + " >>" + next).getBytes(StandardCharsets.UTF_8);
+                byte[] bytes = next.getBytes(StandardCharsets.UTF_8);
                 //发送ByteBuf
                 ByteBuf buffer = channel.alloc().buffer();
                 buffer.writeBytes(bytes);
                 channel.writeAndFlush(buffer);
-                log.info("请输入发送内容:");
-
             }
+            log.info(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             // 优雅关闭EventLoopGroup，
             // 释放掉所有资源包括创建的线程
             workerLoopGroup.shutdownGracefully();
+            log.error("连接断开");
         }
 
     }
