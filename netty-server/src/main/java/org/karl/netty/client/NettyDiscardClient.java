@@ -38,7 +38,6 @@ public class NettyDiscardClient {
             b.remoteAddress(SERVER_IP, SERVER_PORT);
             //4 设置通道的参数
             b.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
-
             //5 装配子通道流水线
             b.handler(new ChannelInitializer<SocketChannel>() {
                 //有连接到达时会创建一个channel

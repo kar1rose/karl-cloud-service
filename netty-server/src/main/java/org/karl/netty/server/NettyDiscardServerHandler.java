@@ -1,8 +1,7 @@
 package org.karl.netty.server;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.*;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,18 +11,94 @@ import java.nio.charset.StandardCharsets;
  * @author KARL ROSE
  * @date 2020/4/28 15:31
  **/
-@Slf4j(topic = "Server Handler")
+@Slf4j(topic = "入站处理器")
+@ChannelHandler.Sharable
 public class NettyDiscardServerHandler extends ChannelInboundHandlerAdapter {
+
+    public static final NettyDiscardServerHandler INSTANCE = new NettyDiscardServerHandler();
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        log.info("channelRead调用");
         ByteBuf in = (ByteBuf) msg;
         try {
+            log.info(in.hasArray() ? "堆内存" : "直接内存");
             byte[] bytes = new byte[in.readableBytes()];
-            in.readBytes(bytes);
-            log.info("message received >>>:{}", new String(bytes, StandardCharsets.UTF_8));
-        } finally {
+            //read bytes会清空msg中的可读数组
+//            in.readBytes(bytes);
+            in.getBytes(0, bytes);
+            String str = new String(bytes, StandardCharsets.UTF_8);
+            log.info("message received >>>:{}", str);
+
+            log.info("写回前:{}", in.refCnt());
+            ChannelFuture channelFuture = ctx.writeAndFlush(msg);
+            channelFuture.addListener((channelFutureListener) -> {
+                log.info("写回后:{}", in.refCnt());
+            });
+
+        } /*finally {
             ReferenceCountUtil.release(msg);
+        }*/ catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        log.info("channelRegistered调用");
+        super.channelRegistered(ctx);
+    }
+
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+        log.info("channelUnregistered调用");
+        super.channelUnregistered(ctx);
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        log.info("channelActive调用");
+        super.channelActive(ctx);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.info("channelInactive调用");
+        super.channelInactive(ctx);
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        log.info("channelReadComplete调用");
+        super.channelReadComplete(ctx);
+    }
+
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        log.info("userEventTriggered调用");
+        super.userEventTriggered(ctx, evt);
+    }
+
+    @Override
+    public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
+        log.info("channelWritabilityChanged调用");
+        super.channelWritabilityChanged(ctx);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        log.error("exceptionCaught调用");
+        super.exceptionCaught(ctx, cause);
+    }
+
+    @Override
+    public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+        log.info("handler被调用");
+        super.handlerAdded(ctx);
+    }
+
+    @Override
+    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+        super.handlerRemoved(ctx);
     }
 }

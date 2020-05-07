@@ -35,8 +35,9 @@ public class NettyDiscardServer {
             //3.设置监听端口
             server.localAddress(new InetSocketAddress(PORT));
             //4.通道参数
-//            server.option(ChannelOption.SO_KEEPALIVE, true);
+            server.option(ChannelOption.SO_KEEPALIVE, true);
             server.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
+            server.childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
             //5.装配子通道流水线
             server.childHandler(new ChannelInitializer<SocketChannel>() {
                 //有连接到达时会创建一个通道
@@ -48,7 +49,7 @@ public class NettyDiscardServer {
                             /*.addLast("decoder", new HttpRequestDecoder())
                             .addLast("encoder", new HttpResponseEncoder())
                             .addLast("aggregator", new HttpObjectAggregator(512 * 1024))*/
-                            .addLast(new NettyDiscardServerHandler());
+                            .addLast(NettyDiscardServerHandler.INSTANCE);
                 }
             });
             //6.绑定服务器
