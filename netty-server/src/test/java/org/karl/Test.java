@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 
 /**
  * @author KARL ROSE
@@ -17,10 +18,16 @@ public class Test {
     private static final Integer MAX = 4000000;
 
     public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            log.info("{}", new Random().nextInt(3));
+        }
+    }
+
+    private void demo() {
         List<Integer> L = new ArrayList<>();
-        L.add(MAX/100000);
-        L.add(MAX/10000);
-        L.add(MAX/1000);
+        L.add(MAX / 100000);
+        L.add(MAX / 10000);
+        L.add(MAX / 1000);
 
         List<Integer> P = new ArrayList<>();
         for (int i = 1; i <= MAX; i++) {
@@ -30,7 +37,6 @@ public class Test {
         printP(L, P);
         long end = System.currentTimeMillis();
         log.info("used:>>>{}", end - start);
-
     }
 
 
