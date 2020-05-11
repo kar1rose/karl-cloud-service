@@ -1,5 +1,6 @@
 package org.karl.netty.client;
 
+import com.alibaba.fastjson.JSON;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -7,7 +8,11 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.string.StringEncoder;
 import lombok.extern.slf4j.Slf4j;
+import org.karl.netty.encoder.StrToByteEncoder;
+import org.karl.netty.model.User;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -45,7 +50,10 @@ public class NettyDiscardClient {
                 protected void initChannel(SocketChannel ch) throws Exception {
                     // pipeline管理子通道channel中的Handler
                     // 向子channel流水线添加一个handler处理器
-                    ch.pipeline().addLast(NettyDiscardClientHandler.INSTANCE);
+                    ch.pipeline()
+                            .addLast(new LengthFieldPrepender(4))
+                            .addLast(new StringEncoder(StandardCharsets.UTF_8));
+
                 }
             });
             ChannelFuture f = b.connect();
@@ -64,19 +72,21 @@ public class NettyDiscardClient {
             f.sync();
             Channel channel = f.channel();
 
-            Scanner scanner = new Scanner(System.in);
-            log.info("请输入发送内容:");
+//            Scanner scanner = new Scanner(System.in);
+//            log.info("请输入发送内容:");
 
-            while (scanner.hasNext()) {
-                //获取输入的内容
+            for (int i = 0; i < 1000; i++) {
+                User user = User.builder().id(System.currentTimeMillis()).username("乔丹").password("$2a$10$kE.GkxCkL4DT7pFlVxF9z.XZje/41dPeS6cZjsqPMzkiNIawsKhuS").build();
+                channel.writeAndFlush(JSON.toJSONString(user));
+            }
+
+            /*while (scanner.hasNext()) {
                 String next = scanner.next();
                 byte[] bytes = next.getBytes(StandardCharsets.UTF_8);
-                //发送ByteBuf
                 ByteBuf buffer = channel.alloc().buffer();
                 buffer.writeBytes(bytes);
-                channel.writeAndFlush(buffer);
-            }
-            log.info(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            }*/
+//            log.info(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -87,6 +97,7 @@ public class NettyDiscardClient {
         }
 
     }
+
 
     public static void main(String[] args) {
         new NettyDiscardClient().start();

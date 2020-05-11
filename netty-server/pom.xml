@@ -18,4 +18,40 @@
         </dependency>
     </dependencies>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.igor-petruk.protobuf</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.6.5</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <!--proto文件路径-->
+                    <protoSourceRoot>${project.basedir}/protobuf</protoSourceRoot>
+                    <!--目标路径-->
+                    <outputDirectory>${project.build.directory}</outputDirectory>
+
+                    <clearOutputDirectory>false</clearOutputDirectory>
+                    <tmporaryProtoFileDirectory>
+                        ${project.build.directory}/tmp
+                    </tmporaryProtoFileDirectory>
+                    <protocExecutable>
+                        ${project.basedir}/protobuf/protoc.exe
+                    </protocExecutable>
+
+                </configuration>
+                <!--<executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>-->
+
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

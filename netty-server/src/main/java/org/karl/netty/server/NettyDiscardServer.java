@@ -9,10 +9,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
 import lombok.extern.slf4j.Slf4j;
 import org.karl.netty.decoder.ByteToStrDecoder;
 
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author KARL ROSE
@@ -47,7 +50,8 @@ public class NettyDiscardServer {
                     //流水线管理子通道中的handler
                     //向子通道流水线添加一个handler处理器
                     ch.pipeline()
-                            .addFirst("decoder",new ByteToStrDecoder())
+                            .addLast(new LengthFieldBasedFrameDecoder(1024,0,4,0,4))
+                            .addLast(new StringDecoder(StandardCharsets.UTF_8))
                             /*.addLast("decoder", new HttpRequestDecoder())
                             .addLast("encoder", new HttpResponseEncoder())
                             .addLast("aggregator", new HttpObjectAggregator(512 * 1024))*/

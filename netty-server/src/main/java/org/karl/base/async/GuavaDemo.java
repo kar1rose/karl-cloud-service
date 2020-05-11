@@ -1,7 +1,6 @@
 package org.karl.base.async;
 
 import com.google.common.util.concurrent.*;
-import com.sun.istack.internal.Nullable;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;
@@ -52,7 +51,7 @@ public class GuavaDemo {
         ListenableFuture<Boolean> hot = pool.submit(hJob);
         Futures.addCallback(hot, new FutureCallback<Boolean>() {
             @Override
-            public void onSuccess(@Nullable Boolean aBoolean) {
+            public void onSuccess(Boolean aBoolean) {
                 if (aBoolean) {
                     job.hot = true;
                 }
@@ -69,7 +68,7 @@ public class GuavaDemo {
         ListenableFuture<Boolean> wash = pool.submit(wJob);
         Futures.addCallback(wash, new FutureCallback<Boolean>() {
             @Override
-            public void onSuccess(@Nullable Boolean aBoolean) {
+            public void onSuccess(Boolean aBoolean) {
                 if (aBoolean) {
                     job.wash = true;
                 }

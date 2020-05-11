@@ -1,9 +1,11 @@
 package org.karl.netty.server;
 
+import com.alibaba.fastjson.JSON;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.util.ReferenceCountUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.karl.netty.model.User;
 
 import java.nio.charset.StandardCharsets;
 
@@ -20,8 +22,9 @@ public class NettyDiscardServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("channelRead调用");
-        String str = (String)msg;
-        log.info("message received >>>:{}", str);
+        String str = (String) msg;
+        User user = JSON.parseObject(str, User.class);
+        log.info("message received >>>:{}", user);
 
         /*log.info("写回前:{}", in.refCnt());
         ChannelFuture channelFuture = ctx.writeAndFlush(msg);
