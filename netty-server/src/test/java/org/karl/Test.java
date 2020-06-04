@@ -3,10 +3,7 @@ package org.karl;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author KARL ROSE
@@ -18,9 +15,36 @@ public class Test {
     private static final Integer MAX = 4000000;
 
     public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
-            log.info("{}", new Random().nextInt(3));
+//        log.info("result={}", myPow(2.000, -2147483648));
+//        log.info("isPalindrome:{}", isPalindrome(121));
+
+        log.info(UUID.randomUUID().toString().replace("-", ""));
+    }
+
+    public static boolean isPalindrome(int x) {
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
         }
+        int revertedNumber = 0;
+        while (x > revertedNumber) {
+            revertedNumber = revertedNumber * 10 + x % 10;
+            x /= 10;
+        }
+        return x == revertedNumber || x == revertedNumber / 10;
+    }
+
+    public static int reverse(int x) {
+        long res = 0;
+        while (x != 0) {
+            res = x % 10 + res * 10;
+            x = x / 10;
+        }
+        return (int) res == res ? (int) res : 0;
+
+    }
+
+    private static double myPow(double x, int n) {
+        return Math.pow(x, n);
     }
 
     private void demo() {
