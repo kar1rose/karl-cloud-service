@@ -4,17 +4,18 @@ package org.karl.leetcode;
  * @author KARL ROSE
  * @date 2020/6/2 18:05
  **/
-public class ListNode {
+public class TreeNode {
 
     int val;
-    ListNode next;
+    TreeNode left;
+    TreeNode right;
 
-    ListNode(int x) {
+    TreeNode(int x) {
         val = x;
     }
 }
 
-class Test {
+/*class Test {
     public static void main(String[] args) {
 
     }
@@ -44,4 +45,4 @@ class Test {
         }
         return null;
     }
-}
+}*/

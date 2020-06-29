@@ -61,7 +61,7 @@ public class GuavaDemo {
             public void onFailure(Throwable throwable) {
                 log.error("烧水失败了");
             }
-        });
+        }, executorService);
 
         log.info("开始洗水壶了");
         Callable<Boolean> wJob = new CallableJoinDemo.WashJob();
@@ -78,7 +78,7 @@ public class GuavaDemo {
             public void onFailure(Throwable throwable) {
                 log.error("杯子摔碎了");
             }
-        });
+        }, executorService);
 
         log.info("把书一摔准备喝茶");
 

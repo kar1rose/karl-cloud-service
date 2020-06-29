@@ -27,7 +27,7 @@ public class CustomZkClient {
 
     private static final RetryPolicy RETRY_POLICY = new ExponentialBackoffRetry(1000, 3);
     private final CuratorFramework client = CuratorFrameworkFactory.newClient(ZK_URL, RETRY_POLICY);
-    private static CustomZkClient instance = null;
+    public static CustomZkClient instance = null;
     private static final String ROOT = "/karl";
     private static final String SUB_NODE = "/karl/node_";
     private static final String ZK_URL = "139.224.83.117:2181";
@@ -39,6 +39,10 @@ public class CustomZkClient {
             log.info("zookeeper connected");
         }
         return instance;
+    }
+
+    public CuratorFramework getClient() {
+        return instance.client;
     }
 
     private CustomZkClient() {
