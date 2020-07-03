@@ -1,6 +1,11 @@
 package org.karl.leetcode;
 
+import com.alibaba.fastjson.JSON;
+
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author KARL ROSE
@@ -12,20 +17,6 @@ public class Leetcode {
         System.out.println(str);
     }
 
-    public static void main(String[] args) {
-        Leetcode leetcode = new Leetcode();
-//        String[] arr = new String[]{"c==c", "f!=a", "f==b", "b==c"};
-//        print(leetcode.equationsPossible(arr));
-//        print(leetcode.translateNum(1225));
-//        print(Arrays.toString(leetcode.dailyTemperatures(new int[]{73, 72, 70, 71, 69, 76, 79, 73})));
-//        print(leetcode.threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
-//        print(leetcode.longestCommonPrefix(new String[]{"flower", "flow", "flight", "flwww", "flyure", "flwerr", "flopit", "flascd", "flr345", "fl98ug"}));
-//        print(leetcode.maxScoreSightseeingPair(new int[]{1, 3, 5}));
-//        print(String.valueOf(leetcode.romanToInt("LVIII")));
-//        System.out.print(leetcode.isPalindrome("A man, a plan, a canal: Panama"));
-        System.out.println(Arrays.toString(leetcode.sort(new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6})));
-
-    }
 
     public boolean equationsPossible(String[] equations) {
         int[] parent = new int[26];
@@ -378,5 +369,161 @@ public class Leetcode {
         return res;
     }
 
+    /**
+     * 快速排序
+     **/
+    public int[] quickSort(int[] arr, int begin, int end) {
+        int len = arr.length;
+        if (len > 1) {
+            int tmp = arr[0];
+            int i = begin;
+            int j = end;
+            while (i < j) {
+                while (i < j && arr[j] > tmp) {
+                    j--;
+                }
+                arr[i] = arr[j];
+//                while (i < end && arr[i] >= tmp) {
+//                    i++;
+//                }
+                arr[j] = arr[i];
+            }
+            arr[i] = tmp;
+            quickSort(arr, begin, i - 1);
+            quickSort(arr, i + 1, end);
+        } else {
+            return arr;
+        }
+        return arr;
+
+    }
+
+    /**
+     * 718. 最长重复子数组
+     * 给两个整数数组 A 和 B ，返回两个数组中公共的、长度最长的子数组的长度
+     **/
+    public int findLength(int[] A, int[] B) {
+        int n = A.length, m = B.length;
+        int ret = 0;
+        int len;
+        for (int i = 0; i < n; i++) {
+            //A从索引i处开始至结束与B的数组长度的最小值
+            len = Math.min(m, n - i);
+            ret = Math.max(ret, maxLength(A, B, i, 0, len));
+        }
+        for (int i = 0; i < m; i++) {
+            //B从索引i处开始至结束与A的数组长度的最小值
+            len = Math.min(n, m - i);
+            ret = Math.max(ret, maxLength(A, B, 0, i, len));
+        }
+        return ret;
+    }
+
+    public int maxLength(int[] A, int[] B, int addA, int addB, int len) {
+        int ret = 0, k = 0;
+        for (int i = 0; i < len; i++) {
+            if (A[addA + i] == B[addB + i]) {
+                k++;
+            } else {
+                k = 0;
+            }
+            ret = Math.max(ret, k);
+        }
+        return ret;
+    }
+
+    /**
+     * 378. 有序矩阵中第K小的元素
+     * 给定一个 n x n 矩阵，其中每行和每列元素均按升序排序，找到矩阵中第 k 小的元素。
+     * 请注意，它是排序后的第 k 小元素，而不是第 k 个不同的元素
+     **/
+    public int kthSmallest(int[][] matrix, int k) {
+        int rows = matrix.length, columns = matrix[0].length;
+        int[] sorted = new int[rows * columns];
+        int index = 0;
+        for (int[] row : matrix) {
+            for (int num : row) {
+                sorted[index++] = num;
+            }
+        }
+        Arrays.sort(sorted);
+        return sorted[k - 1];
+    }
+
+    /**
+     * 108. 将有序数组转换为二叉搜索树
+     * 将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。
+     * 本题中，一个高度平衡二叉树是指一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1。
+     **/
+    public TreeNode sortedArrayToBST(int[] nums) {
+
+        return helper(nums, 0, nums.length - 1);
+    }
+
+    public TreeNode helper(int[] nums, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+        int mid = (left + right) / 2;
+        TreeNode node = new TreeNode(nums[mid]);
+        node.left = helper(nums, left, mid - 1);
+        node.right = helper(nums, mid + 1, right);
+        return node;
+
+    }
+
+    /**
+     * 21. 合并两个有序链表
+     * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+     **/
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+
+        ListNode root = new ListNode(-1);
+        ListNode pre = root;
+        while (l1 != null && l2 != null) {
+            ListNode next = new ListNode();
+            if (l1.val <= l2.val) {
+                next.val = l1.val;
+                l1 = l1.next;
+            } else {
+                next.val = l2.val;
+                l2 = l2.next;
+            }
+            pre.next = next;
+            pre = next;
+        }
+
+        pre.next = l1 == null ? l2 : l1;
+        return root.next;
+    }
+
+
+    public static void main(String[] args) {
+        Leetcode leetcode = new Leetcode();
+//        String[] arr = new String[]{"c==c", "f!=a", "f==b", "b==c"};
+//        print(leetcode.equationsPossible(arr));
+//        print(leetcode.translateNum(1225));
+//        print(Arrays.toString(leetcode.dailyTemperatures(new int[]{73, 72, 70, 71, 69, 76, 79, 73})));
+//        print(leetcode.threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
+//        print(leetcode.longestCommonPrefix(new String[]{"flower", "flow", "flight", "flwww", "flyure", "flwerr", "flopit", "flascd", "flr345", "fl98ug"}));
+//        print(leetcode.maxScoreSightseeingPair(new int[]{1, 3, 5}));
+//        print(String.valueOf(leetcode.romanToInt("LVIII")));
+//        System.out.print(leetcode.isPalindrome("A man, a plan, a canal: Panama"));
+//        System.out.println(Arrays.toString(leetcode.sort(new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6})));
+//        int[] arr = new int[]{23, 45, 17, 11, 13, 89, 72, 26, 3, 17, 11, 13};
+//        print(leetcode.quickSort(arr, 0, arr.length - 1));
+//        int[][] arr = new int[][]{{1, 5, 9}, {10, 11, 13}, {12, 13, 15}};
+//        print(leetcode.kthSmallest(arr, 2));
+
+        ListNode node4 = new ListNode(4);
+        ListNode node3 = new ListNode(3, node4);
+        ListNode node2 = new ListNode(2, node3);
+
+        ListNode nodeA = new ListNode(1, node2);
+        ListNode nodeB = new ListNode(1, node3);
+
+        print(JSON.toJSONString(leetcode.mergeTwoLists(nodeA, nodeB).val));
+
+    }
 
 }
