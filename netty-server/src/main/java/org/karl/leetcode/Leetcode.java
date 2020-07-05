@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.regex.Pattern;
 
 /**
  * @author KARL ROSE
@@ -497,6 +498,57 @@ public class Leetcode {
         return root.next;
     }
 
+    /**
+     * 32. 最长有效括号
+     * 给定一个只包含 '(' 和 ')' 的字符串，找出最长的包含有效括号的子串的长度。
+     **/
+    public int longestValidParentheses(String s) {
+        int maxans = 0;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else {
+                stack.pop();
+                if (stack.empty()) {
+                    stack.push(i);
+                } else {
+                    maxans = Math.max(maxans, i - stack.peek());
+                }
+            }
+        }
+        return maxans;
+
+    }
+
+    /**
+     * 26. 删除排序数组中的重复项
+     * 给定一个排序数组，你需要在 原地 删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+     * 不要使用额外的数组空间，你必须在 原地 修改输入数组 并在使用 O(1) 额外空间的条件下完成。
+     **/
+    public int removeDuplicates(int[] nums) {
+        if (nums.length <= 1) {
+            return nums.length;
+        }
+        int index = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[index]) {
+                index++;
+                nums[index] = nums[i];
+            }
+            if (nums[index] == nums[nums.length - 1]) {
+                break;
+            }
+        }
+        return index + 1;
+    }
+
+    public boolean isMatch(String s, String p) {
+        Pattern pattern = Pattern.compile(p);
+        return pattern.matcher(s).matches();
+    }
+
 
     public static void main(String[] args) {
         Leetcode leetcode = new Leetcode();
@@ -515,14 +567,8 @@ public class Leetcode {
 //        int[][] arr = new int[][]{{1, 5, 9}, {10, 11, 13}, {12, 13, 15}};
 //        print(leetcode.kthSmallest(arr, 2));
 
-        ListNode node4 = new ListNode(4);
-        ListNode node3 = new ListNode(3, node4);
-        ListNode node2 = new ListNode(2, node3);
-
-        ListNode nodeA = new ListNode(1, node2);
-        ListNode nodeB = new ListNode(1, node3);
-
-        print(JSON.toJSONString(leetcode.mergeTwoLists(nodeA, nodeB).val));
+//        print(leetcode.removeDuplicates(new int[]{0, 0, 1, 1, 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 7, 8, 8, 8, 8, 8}));
+        print(leetcode.isMatch("abcde","a?b*"));
 
     }
 
