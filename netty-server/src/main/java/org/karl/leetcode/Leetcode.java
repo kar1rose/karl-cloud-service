@@ -219,13 +219,6 @@ public class Leetcode {
         }
     }
 
-    public String intToRoman(int num) {
-        String result = "";
-        while (num > 0) {
-            int key = num % 10;
-        }
-        return result;
-    }
 
     private char getRomStr(int num) {
         switch (num) {
@@ -544,9 +537,58 @@ public class Leetcode {
         return index + 1;
     }
 
+    /**
+     * 44. 通配符匹配
+     * 给定一个字符串 (s) 和一个字符模式 (p) ，实现一个支持 '?' 和 '*' 的通配符匹配。
+     **/
     public boolean isMatch(String s, String p) {
-        Pattern pattern = Pattern.compile(p);
-        return pattern.matcher(s).matches();
+        int m = s.length();
+        int n = p.length();
+        boolean[][] dp = new boolean[m + 1][n + 1];
+        dp[0][0] = true;
+        for (int i = 1; i <= n; ++i) {
+            if (p.charAt(i - 1) == '*') {
+                dp[0][i] = true;
+            } else {
+                break;
+            }
+        }
+        for (int i = 1; i <= m; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                if (p.charAt(j - 1) == '*') {
+                    dp[i][j] = dp[i][j - 1] || dp[i - 1][j];
+                } else if (p.charAt(j - 1) == '?' || s.charAt(i - 1) == p.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                }
+            }
+        }
+        return dp[m][n];
+    }
+
+    /**
+     * 63. 不同路径 II
+     * 一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。
+     * 机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。
+     * 现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？
+     **/
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        //m*n的二维数组
+        int m = obstacleGrid.length, n = obstacleGrid[0].length;
+        int[] f = new int[n];
+        //出发位置是否有效
+        f[0] = obstacleGrid[0][0] == 0 ? 1 : 0;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (obstacleGrid[i][j] == 1) {
+                    f[j] = 0;
+                    continue;
+                }
+                if (j - 1 >= 0 && obstacleGrid[i][j - 1] == 0) {
+                    f[j] += f[j - 1];
+                }
+            }
+        }
+        return f[m - 1];
     }
 
 
@@ -568,8 +610,14 @@ public class Leetcode {
 //        print(leetcode.kthSmallest(arr, 2));
 
 //        print(leetcode.removeDuplicates(new int[]{0, 0, 1, 1, 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 7, 8, 8, 8, 8, 8}));
-        print(leetcode.isMatch("abcde","a?b*"));
+//        print(leetcode.isMatch("abcde", "a?b*"));
+//        print(leetcode.uniquePathsWithObstacles(new int[][]{{0, 0}, {0, 0}}));
 
+        int a = 0;
+        for (int i = 0; i < 99; i++) {
+
+        }
+        System.out.println(a);
     }
 
 }
