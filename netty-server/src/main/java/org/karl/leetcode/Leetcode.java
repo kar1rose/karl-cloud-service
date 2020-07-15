@@ -743,6 +743,15 @@ public class Leetcode {
 //        int[][] arr = new int[][]{{1, 5, 9}, {10, 11, 13}, {12, 13, 15}};
 //        print(leetcode.kthSmallest(arr, 2));
 
+//        print(leetcode.removeDuplicates(new int[]{0, 0, 1, 1, 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 7, 8, 8, 8, 8, 8}));
+//        print(leetcode.isMatch("abcde", "a?b*"));
+//        print(leetcode.uniquePathsWithObstacles(new int[][]{{0, 0}, {0, 0}}));
+
+        int a = 0;
+        for (int i = 0; i < 99; i++) {
+
+        }
+        System.out.println(a);
 //        print(leetcode.strStr("mississippi", "issip"));
 //        print(Arrays.toString(leetcode.divingBoard(1, 2, 3)));
 //        print(leetcode.searchInsert(new int[]{1, 3, 4, 5, 6}, 7));
