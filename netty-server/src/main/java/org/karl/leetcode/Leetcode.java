@@ -1,11 +1,7 @@
 package org.karl.leetcode;
 
-import com.alibaba.fastjson.JSON;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author KARL ROSE
@@ -336,7 +332,6 @@ public class Leetcode {
     public int[] sort(int[] nums) {
         boolean flag;
         int len = nums.length;
-        int[] res = new int[len];
         for (int i = 0; i < len; i++) {
             flag = false;
             int tmp;
@@ -355,6 +350,7 @@ public class Leetcode {
             }
         }
 
+        int[] res = new int[len];
         int tmp = nums[0];
         res[0] = nums[0];
         int index = 1;
@@ -497,6 +493,238 @@ public class Leetcode {
         return root.next;
     }
 
+    /**
+     * 112. 路径总和
+     * 给定一个二叉树和一个目标和，判断该树中是否存在根节点到叶子节点的路径，这条路径上所有节点值相加等于目标和。
+     **/
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if (root == null) {
+            return false;
+        }
+        if (root.left == null && root.right == null) {
+            return root.val == sum;
+        }
+        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+
+    }
+
+    /**
+     * 27. 移除元素
+     * 给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。
+     * 不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。
+     * 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。
+     **/
+    public int removeElement(int[] nums, int val) {
+        int i = 0;
+        for (int j = 0; j < nums.length; j++) {
+            if (nums[j] != val) {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        return i;
+
+    }
+
+    /**
+     * 28. 实现 strStr()
+     * 实现 strStr() 函数。
+     * 给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。
+     **/
+    public int strStr(String haystack, String needle) {
+        if (needle.length() > haystack.length()) {
+            return -1;
+        }
+        if (needle.length() == 0) {
+            return 0;
+        }
+        for (int i = 0; i < haystack.length() - needle.length() + 1; i++) {
+            if (haystack.charAt(i) == needle.charAt(0) && haystack.startsWith(needle, i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 16.11. 跳水板
+     * 你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。
+     * 返回的长度需要从小到大排列。
+     **/
+    public int[] divingBoard(int shorter, int longer, int k) {
+        if (k == 0) {
+            return new int[0];
+        }
+        if (shorter == longer) {
+            return new int[]{shorter * k};
+        }
+        //结果是k+1种
+        int[] ans = new int[k + 1];
+        for (int i = 0; i < k + 1; i++) {
+            ans[i] = shorter * (k - i) + longer * i;
+        }
+        return ans;
+    }
+
+    /**
+     * 35. 搜索插入位置
+     * 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+     * 你可以假设数组中无重复元素。
+     **/
+    public int searchInsert(int[] nums, int target) {
+        if (target > nums[nums.length - 1]) {
+            return nums.length;
+        }
+        //暴力
+        /*for (int i = 0; i < nums.length; i++) {
+            if (target <= nums[i]) {
+                return i;
+            }
+        }
+        return 0;*/
+        //二分查找
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] >= target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return left;
+    }
+
+    /**
+     * 38. 外观数列
+     * 给定一个正整数 n（1 ≤ n ≤ 30），输出外观数列的第 n 项。
+     **/
+    public String countAndSay(int n) {
+        String ans = "1";
+        if (n == 1) {
+            return ans;
+        }
+        for (int i = 2; i <= n; i++) {
+            ans = next(ans);
+        }
+        return ans;
+    }
+
+    public String next(String pre) {
+        StringBuilder next = new StringBuilder();
+        int index = 0;
+        Character tmp = null;
+        for (int i = 0; i < pre.length(); i++) {
+            char c = pre.charAt(i);
+            if (tmp == null) {
+                tmp = c;
+                index++;
+            } else {
+                if (tmp == c) {
+                    //栈顶是该元素则计数器+1
+                    index++;
+                } else {
+                    //栈顶不是该元素，弹出，计数
+                    next.append(index).append(tmp.toString());
+                    tmp = c;
+                    index = 1;
+                }
+            }
+            if (i == pre.length() - 1) {
+                next.append(index).append(tmp.toString());
+            }
+        }
+        return next.toString();
+    }
+
+    /**
+     * 面试题 17.13. 恢复空格
+     * 哦，不！你不小心把一个长篇文章中的空格、标点都删掉了，并且大写也弄成了小写。像句子"I reset the computer. It still didn’t boot!"已经变成了"iresetthecomputeritstilldidntboot"。在处理标点符号和大小写之前，你得先把它断成词语。当然了，你有一本厚厚的词典dictionary，不过，有些词没在词典里。假设文章用sentence表示，设计一个算法，把文章断开，要求未识别的字符最少，返回未识别的字符数。
+     * <p>
+     * 注意：本题相对原题稍作改动，只需返回未识别的字符数
+     **/
+    public int respace(String[] dictionary, String sentence) {
+
+
+        return 0;
+    }
+
+    /**
+     * 350. 两个数组的交集 II
+     **/
+    public int[] intersect(int[] nums1, int[] nums2) {
+        if (nums1.length > nums2.length) {
+            return intersect(nums2, nums1);
+        }
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int num : nums1) {
+            int count = map.getOrDefault(num, 0) + 1;
+            map.put(num, count);
+        }
+        int[] intersection = new int[nums1.length];
+        int index = 0;
+        for (int num : nums2) {
+            int count = map.getOrDefault(num, 0);
+            if (count > 0) {
+                intersection[index++] = num;
+                count--;
+                if (count > 0) {
+                    map.put(num, count);
+                } else {
+                    map.remove(num);
+                }
+            }
+        }
+        return Arrays.copyOfRange(intersection, 0, index);
+    }
+
+    /**
+     * 120. 三角形最小路径和
+     * 给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。
+     * <p>
+     * 相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。
+     **/
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        int[] f = new int[n];
+        f[0] = triangle.get(0).get(0);
+        for (int i = 1; i < n; i++) {
+            f[i] = f[i - 1] + triangle.get(i).get(i);
+            for (int j = i - 1; j > 0; --j) {
+                f[j] = Math.min(f[j - 1], f[j]) + triangle.get(i).get(j);
+            }
+            f[0] += triangle.get(i).get(0);
+        }
+        int min = f[0];
+        for (int i = 1; i < n; i++) {
+            min = Math.min(f[i], min);
+        }
+        return min;
+    }
+
+    /**
+     * 96. 不同的二叉搜索树
+     * 给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
+     *
+     * G(n): 长度为 nn 的序列能构成的不同二叉搜索树的个数
+     * F(i,n): 以 i 为根、序列长度为 n 的不同二叉搜索树个数 (1 ≤i ≤ n)(1≤i≤n)
+     **/
+    public int numTrees(int n) {
+        int[] G = new int[n + 1];
+        G[0] = 1;
+        G[1] = 1;
+
+        for (int i = 2; i <= n; ++i) {
+            for (int j = 1; j <= i; ++j) {
+                G[i] += G[j - 1] * G[i - j];
+            }
+        }
+        return G[n];
+    }
+
 
     public static void main(String[] args) {
         Leetcode leetcode = new Leetcode();
@@ -515,14 +743,11 @@ public class Leetcode {
 //        int[][] arr = new int[][]{{1, 5, 9}, {10, 11, 13}, {12, 13, 15}};
 //        print(leetcode.kthSmallest(arr, 2));
 
-        ListNode node4 = new ListNode(4);
-        ListNode node3 = new ListNode(3, node4);
-        ListNode node2 = new ListNode(2, node3);
-
-        ListNode nodeA = new ListNode(1, node2);
-        ListNode nodeB = new ListNode(1, node3);
-
-        print(JSON.toJSONString(leetcode.mergeTwoLists(nodeA, nodeB).val));
+//        print(leetcode.strStr("mississippi", "issip"));
+//        print(Arrays.toString(leetcode.divingBoard(1, 2, 3)));
+//        print(leetcode.searchInsert(new int[]{1, 3, 4, 5, 6}, 7));
+//        print(leetcode.next("1211"));
+        print(leetcode.numTrees(4));
 
     }
 
