@@ -1,6 +1,7 @@
 package org.karl.leetcode;
 
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -708,7 +709,7 @@ public class Leetcode {
     /**
      * 96. 不同的二叉搜索树
      * 给定一个整数 n，求以 1 ... n 为节点组成的二叉搜索树有多少种？
-     *
+     * <p>
      * G(n): 长度为 nn 的序列能构成的不同二叉搜索树的个数
      * F(i,n): 以 i 为根、序列长度为 n 的不同二叉搜索树个数 (1 ≤i ≤ n)(1≤i≤n)
      **/
@@ -723,6 +724,108 @@ public class Leetcode {
             }
         }
         return G[n];
+    }
+
+    /**
+     * 53. 最大子序和
+     * 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。
+     **/
+    public int maxSubArray(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int ans = nums[0];
+        int leftMax = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            leftMax = Math.max(leftMax + nums[i], nums[i]);
+            ans = Math.max(ans, leftMax);
+        }
+        return ans;
+
+    }
+
+    /**
+     * 167. 两数之和 II - 输入有序数组
+     * 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
+     * 函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。
+     * 自己写出来哒
+     **/
+    public int[] twoSum(int[] numbers, int target) {
+        int i = 0, j = numbers.length - 1;
+        while (i < j) {
+            if (numbers[i] + numbers[j] > target) {
+                j--;
+            } else if (numbers[i] + numbers[j] < target) {
+                i++;
+            } else if (numbers[i] + numbers[j] == target) {
+                break;
+            }
+        }
+
+        return new int[]{i + 1, j + 1};
+    }
+
+    /**
+     * 58. 最后一个单词的长度
+     * 给定一个仅包含大小写字母和空格 ' ' 的字符串 s，返回其最后一个单词的长度。如果字符串从左向右滚动显示，那么最后一个单词就是最后出现的单词。
+     * <p>
+     * 如果不存在最后一个单词，请返回 0 。
+     * <p>
+     * 说明：一个单词是指仅由字母组成、不包含任何空格字符的 最大子字符串。
+     **/
+    public int lengthOfLastWord(String s) {
+        String[] strings = s.split(" ");
+        if (strings.length == 0) {
+            return 0;
+        }
+        return strings[strings.length - 1].length();
+    }
+
+    /**
+     * 66. 加一
+     * 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
+     * <p>
+     * 最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
+     * <p>
+     * 你可以假设除了整数 0 之外，这个整数不会以零开头。
+     **/
+    public int[] plusOne(int[] digits) {
+        int len = digits.length;
+        if (digits[len - 1] != 9) {
+            digits[len - 1]++;
+            return digits;
+        }
+
+        int nineNum = 0;
+        for (int digit : digits) {
+            if (digit == 9) {
+                nineNum++;
+            }
+        }
+        if (nineNum == len) {
+            //全是9 会增加数组长度
+            int[] ans = new int[len + 1];
+            ans[0] = 1;
+            return ans;
+        } else {
+            int tmp = 1;
+            for (int i = len - 1; i >= 0; i--) {
+                if (tmp == 0) {
+                    break;
+                }
+                digits[i] += tmp;
+                if (digits[i] == 10) {
+                    digits[i] = 0;
+                } else {
+                    tmp = 0;
+                }
+            }
+            return digits;
+        }
+    }
+
+    public String addBinary(String a, String b) {
+        return Integer.toBinaryString(Integer.parseInt(a, 2) + Integer.parseInt(b, 2));
     }
 
 
@@ -747,17 +850,14 @@ public class Leetcode {
 //        print(leetcode.isMatch("abcde", "a?b*"));
 //        print(leetcode.uniquePathsWithObstacles(new int[][]{{0, 0}, {0, 0}}));
 
-        int a = 0;
-        for (int i = 0; i < 99; i++) {
-
-        }
-        System.out.println(a);
 //        print(leetcode.strStr("mississippi", "issip"));
 //        print(Arrays.toString(leetcode.divingBoard(1, 2, 3)));
 //        print(leetcode.searchInsert(new int[]{1, 3, 4, 5, 6}, 7));
 //        print(leetcode.next("1211"));
-        print(leetcode.numTrees(4));
-
+//        print(leetcode.numTrees(4));
+//        print(leetcode.maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4}));
+//        print(Arrays.toString(leetcode.twoSum(new int[]{2, 7, 11, 15}, 9)));
+        print(Arrays.toString(leetcode.plusOne(new int[]{5, 2, 2, 6, 5, 7, 1, 9, 0, 3, 8, 6, 8, 6, 5, 2, 1, 8, 7, 9, 8, 3, 8, 4, 7, 2, 5, 8, 9})));
     }
 
 }
