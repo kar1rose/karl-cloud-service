@@ -1,6 +1,5 @@
 package org.karl.sh.boot.model;
 
-import lombok.Data;
 
 /**
  * @author KARL ROSE
@@ -12,13 +11,17 @@ public final class User {
     private String username;
     private String mail;
 
+
     public User() {
+
     }
 
     public User(String id, String username, String mail) {
         this.id = id;
         this.username = username;
         this.mail = mail;
+
+
     }
 
     public String getId() {

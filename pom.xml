@@ -15,7 +15,6 @@
         <module>service-gateway</module>
         <module>netty-server</module>
         <module>service-mail</module>
-        <module>zk-client</module>
     </modules>
 
     <parent>
@@ -52,6 +51,11 @@
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>-->
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.21</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
