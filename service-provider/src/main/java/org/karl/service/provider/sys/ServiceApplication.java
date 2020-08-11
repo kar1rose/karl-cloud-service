@@ -10,10 +10,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  **/
 @SpringBootApplication
 @EnableDiscoveryClient
-public class ServiceProviderSysApplication {
+public class ServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ServiceProviderSysApplication.class, args);
+        SpringApplication.run(ServiceApplication.class, args);
     }
 
 }
