@@ -1,6 +1,5 @@
 package org.karl.sh.boot.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.karl.sh.boot.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,14 +7,12 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /**
  * @author KARL ROSE
  * @date 2020/7/20 15:51
  **/
-@Slf4j
 @RestController
 @RequestMapping("/")
 public class IndexController {
@@ -46,6 +43,6 @@ public class IndexController {
     }
 
     private void printlnThread() {
-        log.info("Controller[" + Thread.currentThread().getName() + "]");
+        System.out.println("Controller[" + Thread.currentThread().getName() + "]");
     }
 }

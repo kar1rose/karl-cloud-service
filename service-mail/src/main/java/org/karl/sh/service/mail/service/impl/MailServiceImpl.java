@@ -1,11 +1,13 @@
 package org.karl.sh.service.mail.service.impl;
 
-import lombok.extern.slf4j.Slf4j;
 import org.karl.sh.service.mail.KService;
 import org.karl.sh.service.mail.service.MailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import sun.net.httpserver.AuthFilter;
 
 import javax.annotation.Resource;
 
@@ -13,9 +15,11 @@ import javax.annotation.Resource;
  * @author KARL ROSE
  * @date 2020/3/24 13:00
  **/
-@Slf4j
 @KService
 public class MailServiceImpl implements MailService {
+
+
+    private static final Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
 
     @Resource
     private JavaMailSender mailSender;
@@ -33,9 +37,9 @@ public class MailServiceImpl implements MailService {
 
         try {
             mailSender.send(message);
-            log.info("简单邮件已经发送。");
+            logger.info("简单邮件已经发送。");
         } catch (Exception e) {
-            log.error("发送简单邮件时发生异常！", e);
+            logger.error("发送简单邮件时发生异常！", e);
         }
     }
 }

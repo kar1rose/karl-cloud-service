@@ -1,12 +1,11 @@
 package org.karl.service.gateway.config;
-/**
- * Created by KARL_ROSE on 2020/2/29 10:18
- */
+
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -23,14 +22,15 @@ import java.net.InetSocketAddress;
 import java.util.Map;
 
 /**
- *  AuthFilter
+ * AuthFilter
+ *
  * @author ROSE
  * @date 2020/2/29 10:18
- *
  **/
-@Slf4j
 @Component
 public class AuthFilter implements GlobalFilter, Ordered {
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthFilter.class);
 
     private static final String HEAR_AUTH = "Authorization";
 
@@ -73,9 +73,9 @@ public class AuthFilter implements GlobalFilter, Ordered {
             assert address != null;
             InetAddress inetAddress = address.getAddress();
             ip = inetAddress.getHostAddress();
-            log.info("inetAddress host name :" + inetAddress.getHostName());
+            logger.info("inetAddress host name :" + inetAddress.getHostName());
         } catch (Exception e) {
-            log.error(e.getMessage());
+            logger.error(e.getMessage());
             ip = "";
         }
         return ip;

@@ -4,16 +4,16 @@ package org.karl.service.provider.sys.model;
  * @author KARL ROSE
  * @date 2020/8/11 16:07
  **/
-public class User {
+public class SysUser {
 
     private Long id;
     private String username;
     private String password;
 
-    public User() {
+    public SysUser() {
     }
 
-    public User(Long id, String username, String password) {
+    public SysUser(Long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;

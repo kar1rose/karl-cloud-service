@@ -2,12 +2,12 @@ package org.karl.service.provider.sys.controller;
 
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.karl.service.provider.sys.model.User;
-import org.redisson.RedissonLock;
+import org.karl.service.provider.sys.model.SysUser;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -25,10 +25,12 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author ROSE
  * @date 2020/2/29 09:54
  **/
-@Slf4j
 @RestController
 @RequestMapping("/sys")
 public class SysController {
+
+
+    private static final Logger logger = LoggerFactory.getLogger(SysController.class);
 
     @Value("${server.port}")
     String port;
@@ -61,20 +63,20 @@ public class SysController {
         AtomicInteger count = new AtomicInteger();
         for (int i = 0; i < 10; i++) {
             executorService.execute(() -> {
-                log.info("抢占锁:{}", LOCK_KEY);
+                logger.info("抢占锁:{}", LOCK_KEY);
                 RLock lock = redissonClient.getLock(LOCK_KEY);
                 long id = System.currentTimeMillis();
                 lock.lock();
-                log.info("锁定成功:{}", id);
+                logger.info("锁定成功:{}", id);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                User user = new User(id, UUID.randomUUID().toString(), "password");
-                redisTemplate.opsForHash().put("USER", String.valueOf(user.getId()), user);
+                SysUser sysUser = new SysUser(id, UUID.randomUUID().toString(), "password");
+                redisTemplate.opsForHash().put("USER", String.valueOf(sysUser.getId()), sysUser);
                 lock.unlock();
-                log.info("解锁完成:{}", id);
+                logger.info("解锁完成:{}", id);
                 count.incrementAndGet();
                 latch.countDown();
             });
@@ -83,7 +85,7 @@ public class SysController {
             // 一定记得加上timeout时间，防止阻塞主线程
             latch.await(25, TimeUnit.SECONDS);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            logger.error(e.getMessage());
         }
         //4.等待所有子任务完成
         if (count.get() != 10) {

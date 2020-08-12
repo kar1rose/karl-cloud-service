@@ -4,7 +4,6 @@ package org.karl.service.consumer.sys.service.hystrix;
  */
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.karl.service.consumer.sys.service.SysService;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +14,11 @@ import org.springframework.stereotype.Component;
  *
  **/
 
-@Slf4j
 @Component
 public class SysServiceFallbackImpl implements SysService {
 
     @Override
     public String say(String name) {
-        log.error("消费降级{}", name);
         return "hystrix 服务降级";
     }
 }
