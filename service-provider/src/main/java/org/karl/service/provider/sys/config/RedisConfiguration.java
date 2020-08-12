@@ -4,12 +4,13 @@ import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.spring.data.connection.RedissonConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
@@ -19,16 +20,21 @@ import java.io.IOException;
 import java.time.Duration;
 
 /**
+ * redis 配置类
+ *
  * @author KARL ROSE
  * @date 2020/8/11 15:41
  **/
 @Configuration
 public class RedisConfiguration {
 
+    private static final Logger logger = LoggerFactory.getLogger(RedisConfiguration.class);
 
     @Bean
     public RedissonClient redisson() throws IOException {
+        //从自定义配置文件加载redis集群配置
         Config config = Config.fromYAML(new ClassPathResource("redisson.yml").getInputStream());
+        logger.info("redisson配置:{}", config.toJSON());
         return Redisson.create(config);
     }
 
@@ -36,6 +42,7 @@ public class RedisConfiguration {
     public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redisson) {
         return new RedissonConnectionFactory(redisson);
     }
+
     @Bean
     public StringRedisSerializer stringRedisSerializer() {
         return new StringRedisSerializer();
@@ -50,7 +57,7 @@ public class RedisConfiguration {
     }
 
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
+    public RedisTemplate<String, Object> redisTemplate(RedissonConnectionFactory factory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
         // key的序列化类型
@@ -64,9 +71,9 @@ public class RedisConfiguration {
 
 
     @Bean
-    public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+    public RedisCacheManager cacheManager(RedissonConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofDays(7))
+                .entryTtl(Duration.ofDays(1))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 .disableCachingNullValues();

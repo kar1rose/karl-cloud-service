@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.karl.service.provider.sys.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="org.karl.service.provider.sys.model.SysUser">
+        <id column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
+        <result column="NICKNAME" jdbcType="VARCHAR" property="nickname"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="STATE" jdbcType="INTEGER" property="state"/>
+        <result column="IP_ADDRESS" jdbcType="VARCHAR" property="ipAddress"/>
+        <result column="PHONE" jdbcType="VARCHAR" property="phone"/>
+        <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+        <result column="FIDS" jdbcType="VARCHAR" property="fids"/>
+        <result column="FK_DEPART_ID" jdbcType="VARCHAR" property="fkDepartId"/>
+        <result column="FK_BRAND_ID" jdbcType="VARCHAR" property="fkBrandId"/>
+        <result column="IS_DELETE" jdbcType="INTEGER" property="isDelete"/>
+        <result column="IS_SUPER" jdbcType="INTEGER" property="isSuper"/>
+        <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser"/>
+        <result column="CREATE_DATETIME" jdbcType="TIMESTAMP" property="createDatetime"/>
+        <result column="CREATE_DATETIME_STR" jdbcType="VARCHAR" property="createDatetimeStr"/>
+        <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="UPDATE_DATETIME" jdbcType="TIMESTAMP" property="updateDatetime"/>
+        <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId"/>
+        <result column="ROLE_CODE" jdbcType="VARCHAR" property="roleCode"/>
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
+        <result column="DEPART_NAME" jdbcType="VARCHAR" property="departName"/>
+    </resultMap>
+
+    <select id="selectByUsername" parameterType="String" resultMap="BaseResultMap">
+        select su.*
+        from sys_user su
+        where su.IS_DELETE = 0
+          and su.USERNAME = #{username}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="Long">
+        delete
+        from sys_user
+        where USER_ID = #{userId}
+    </delete>
+
+
+</mapper>
