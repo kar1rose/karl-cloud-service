@@ -1,7 +1,8 @@
 package org.karl.base.async;
 
 import com.google.common.util.concurrent.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.*;
 
@@ -9,13 +10,14 @@ import java.util.concurrent.*;
  * @author KARL ROSE
  * @date 2020/4/28 11:09
  **/
-@Slf4j
 public class GuavaDemo {
 
     private static final Integer CORE_POOL_SIZE = 10;
     private static final Integer MAX_POOL_SIZE = 20;
     private static final Long KEEP_ALIVE_TIME = 200L;
     private static final int SLEEP = 2000;
+
+    private static final Logger log = LoggerFactory.getLogger("GuavaDemo");
 
     static class MainJob implements Runnable {
         boolean wash = false;

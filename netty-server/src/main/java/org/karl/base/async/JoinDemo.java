@@ -1,6 +1,7 @@
 package org.karl.base.async;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 异步阻塞demo
@@ -8,9 +9,10 @@ import lombok.extern.slf4j.Slf4j;
  * @author karl.rose
  * @date 2020/4/27 18:45
  **/
-@Slf4j
 public class JoinDemo {
 
+
+    private static final Logger log = LoggerFactory.getLogger("JoinDemo");
     private static final int SLEEP = 2000;
 
     static class HotWaterThread extends Thread {
