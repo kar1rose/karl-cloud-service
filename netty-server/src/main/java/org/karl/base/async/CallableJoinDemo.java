@@ -1,7 +1,6 @@
 package org.karl.base.async;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -13,12 +12,9 @@ import java.util.concurrent.FutureTask;
  * @author karl.rose
  * @date 2020/4/27 18:45
  **/
+@Slf4j(topic = "Callable Demo")
 public class CallableJoinDemo {
-
-    private static final Logger log = LoggerFactory.getLogger("CallableJoinDemo");
-
-    private static final int SLEEP = 2000;
-
+    
     static class HotWaterJob implements Callable<Boolean> {
         @Override
         public Boolean call() throws Exception {

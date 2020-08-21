@@ -1,8 +1,7 @@
 package org.karl.base.buffer;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,10 +18,8 @@ import java.nio.file.NoSuchFileException;
  * @author ROSE
  * @date 2020/4/9 23:13
  **/
+@Slf4j
 public class BufferUtils {
-
-
-    private static final Logger log = LoggerFactory.getLogger("BufferUtils");
 
     /**
      * @param src  源文件路径

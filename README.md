@@ -5,3 +5,7 @@
 `nacos`注册中心
 
 `java mail` 邮件服务
+
+`redis`缓存
+
+`rocketmq` 消息队列

@@ -57,4 +57,15 @@ public class SysController {
         return defaultMQProducer.send(new Message(topic, tag, msg.getBytes()));
     }
 
+    @GetMapping("/thread/{name}")
+    public String thread(@PathVariable String name) {
+        logger.info("当前线程:{}", Thread.currentThread().getName());
+        try {
+            Thread.sleep(1000 * 2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "hello " + name;
+    }
+
 }
