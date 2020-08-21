@@ -1,7 +1,8 @@
 package org.karl.base.buffer;
 
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,8 +19,9 @@ import java.nio.file.NoSuchFileException;
  * @author ROSE
  * @date 2020/4/9 23:13
  **/
-@Slf4j
 public class BufferUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(BufferUtils.class);
 
     /**
      * @param src  源文件路径
@@ -57,19 +59,19 @@ public class BufferUtils {
                     buffer.flip();
                     int outLength = 0;
                     while ((outLength = channelOut.write(buffer)) != 0) {
-                        log.info("写入字节数:>>>{}", outLength);
+                        logger.info("写入字节数:>>>{}", outLength);
                     }
                     buffer.clear();
                 }
                 channelOut.force(true);
 
             } else {
-                log.error("file {} create failed", destFile.getName());
+                logger.error("file {} create failed", destFile.getName());
             }
 
 
         } catch (Exception e) {
-            log.error(e.getMessage());
+            logger.error(e.getMessage());
         } finally {
             if (channelOut != null) {
                 channelOut.close();
@@ -124,11 +126,11 @@ public class BufferUtils {
                 fos.write(b);
 
             } else {
-                log.error("file {} create failed", destFile.getName());
+                logger.error("file {} create failed", destFile.getName());
             }
 
         } catch (Exception e) {
-            log.error(e.getMessage());
+            logger.error(e.getMessage());
         } finally {
             if (fis != null) {
                 fis.close();

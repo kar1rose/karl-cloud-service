@@ -1,6 +1,7 @@
 package org.karl.base.async;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 异步阻塞demo
@@ -8,9 +9,10 @@ import lombok.extern.slf4j.Slf4j;
  * @author karl.rose
  * @date 2020/4/27 18:45
  **/
-@Slf4j
 public class JoinDemo {
 
+
+    private static final Logger logger = LoggerFactory.getLogger(JoinDemo.class);
     private static final int SLEEP = 2000;
 
     static class HotWaterThread extends Thread {
@@ -21,13 +23,13 @@ public class JoinDemo {
         @Override
         public void run() {
             try {
-                log.info("洗好水壶");
-                log.info("灌上凉水");
-                log.info("放在火上");
+                logger.info("洗好水壶");
+                logger.info("灌上凉水");
+                logger.info("放在火上");
                 Thread.sleep(SLEEP * 5);
-                log.info("烧水结束");
+                logger.info("烧水结束");
             } catch (Exception e) {
-                log.error(e.getMessage());
+                logger.error(e.getMessage());
             }
         }
     }
@@ -40,13 +42,13 @@ public class JoinDemo {
         @Override
         public void run() {
             try {
-                log.info("洗茶壶");
-                log.info("洗茶杯");
-                log.info("拿茶叶");
+                logger.info("洗茶壶");
+                logger.info("洗茶杯");
+                logger.info("拿茶叶");
                 Thread.sleep(SLEEP);
-                log.info("洗水壶结束");
+                logger.info("洗水壶结束");
             } catch (Exception e) {
-                log.error(e.getMessage());
+                logger.error(e.getMessage());
             }
         }
     }
@@ -60,13 +62,13 @@ public class JoinDemo {
         try {
             //thread同步阻塞
             washThread.join();
-            log.info("等水烧开");
+            logger.info("等水烧开");
             hotThread.join();
-            log.info("泡茶喝");
+            logger.info("泡茶喝");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("泡茶结束");
+        logger.info("泡茶结束");
 
     }
 }

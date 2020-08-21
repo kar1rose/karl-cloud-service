@@ -1,6 +1,8 @@
 package org.karl.tree;
 
-import lombok.extern.slf4j.Slf4j;
+import org.karl.base.async.CallableJoinDemo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -8,8 +10,10 @@ import java.io.File;
  * @author KARL ROSE
  * @date 2020/4/9 14:28
  **/
-@Slf4j(topic = "遍历目录")
 public class LoopDir {
+
+
+    private static final Logger logger = LoggerFactory.getLogger(LoopDir.class);
 
     public static void main(String[] args) {
         Integer level = 0;
@@ -30,12 +34,12 @@ public class LoopDir {
         }
         String s = new String(sb);
         if (file.isDirectory()) {
-            log.info(s + file.getName() + "/");
+            logger.info(s + file.getName() + "/");
             File[] list = file.listFiles();
             if (list != null) {
                 for (File f : list) {
                     if (!f.isDirectory()) {
-                        log.info(s + f.getName());
+                        logger.info(s + f.getName());
                     } else {
                         level++;
                         loop(f, level);
@@ -43,7 +47,7 @@ public class LoopDir {
                 }
             }
         } else {
-            log.info(s + file.getName());
+            logger.info(s + file.getName());
         }
 
     }
