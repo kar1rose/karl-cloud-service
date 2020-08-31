@@ -7,9 +7,12 @@ spring:
     nacos:
       discovery:
         server-addr: 139.224.83.117:8848
+        namespace: public
       config:
         server-addr: 139.224.83.117:8848
         file-extension: yaml
+        namespace: public
+        group: DEFAULT_GROUP
   datasource:
     druid:
       url: jdbc:mysql://139.224.83.117/karl?characterEncoding=utf8&useUnicode=true&useSSL=false
@@ -17,7 +20,7 @@ spring:
       password: XYuqINlJOlyn3VRAWuBMeTrk41OsZ15Vn8R7LeaLKyXaOWhjpoDLWNawFYqfX+dx9jSUBL/UXj3YBloteji0xQ==
       driver-class-name: com.mysql.cj.jdbc.Driver
       initial-size: 10
-      max-active: 20
+      max-active: 200
       min-idle: 5
       max-wait: 60000
       pool-prepared-statements: false
@@ -38,9 +41,16 @@ spring:
     type: redis
 
 mybatis:
-  type-aliases-package: org.karl.service.provider.sys.model
+  type-aliases-package: org.karl.sh.provider.model
   mapper-locations: classpath:mapper/**/*Mapper.xml
   check-config-location: true
 
 logging:
   config: classpath:log4j/dev.xml
+
+#暴露监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

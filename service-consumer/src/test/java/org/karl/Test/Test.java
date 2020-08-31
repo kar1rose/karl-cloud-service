@@ -3,12 +3,11 @@ package org.karl.Test;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -22,7 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  **/
 public class Test {
 
-    private static final int HTTP_CONN_TIME_OUT = 3000;
+    private static final int HTTP_CONN_TIME_OUT = 10000;
 
     /**
      * 请求配置
@@ -43,10 +42,9 @@ public class Test {
         for (int i = 0; i < size; i++) {
             executorService.execute(() -> {
                 CloseableHttpClient http = HttpClients.createDefault();
-                HttpGet get = new HttpGet("http://127.0.0.1:8001/thread/rose");
-                get.setConfig(REQUEST_CONFIG);
-                try (CloseableHttpResponse httpResponse = http.execute(get)) {
-//                    HttpPost post = new HttpPost("http://127.0.0.1:8001/send?msg=hello卡尔");
+                HttpPost post = new HttpPost("http://127.0.0.1:8001/order/918/100002/1");
+                post.setConfig(REQUEST_CONFIG);
+                try (CloseableHttpResponse httpResponse = http.execute(post)) {
                     HttpEntity httpEntity = httpResponse.getEntity();
                     if (httpEntity != null) {
                         String result = EntityUtils.toString(httpEntity, StandardCharsets.UTF_8);
@@ -61,9 +59,10 @@ public class Test {
             });
         }
         latch.await(10, TimeUnit.SECONDS);
+        //线程暂停等十秒
 //        executorService.awaitTermination(10, TimeUnit.SECONDS);
         if (atomicInteger.get() != size) {
-            System.out.println("执行失败");
+            System.out.println("执行完成数:" + atomicInteger.get());
         }
         System.out.println("执行完成");
         executorService.shutdown();
@@ -71,4 +70,7 @@ public class Test {
         System.out.println("over in " + (end - start) / 1000 + "seconds");
 
     }
+
+
+
 }

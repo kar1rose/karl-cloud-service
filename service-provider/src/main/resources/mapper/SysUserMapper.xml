@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.karl.service.provider.sys.mapper.SysUserMapper">
-    <resultMap id="BaseResultMap" type="org.karl.service.provider.sys.model.SysUser">
+<mapper namespace="org.karl.sh.provider.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="org.karl.sh.provider.model.SysUser">
         <id column="USER_ID" jdbcType="VARCHAR" property="userId"/>
         <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
         <result column="NICKNAME" jdbcType="VARCHAR" property="nickname"/>

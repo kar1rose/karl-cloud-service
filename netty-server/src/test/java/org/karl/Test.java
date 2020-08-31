@@ -18,8 +18,8 @@ public class Test {
     public static void main(String[] args) {
 //        log.info("result={}", myPow(2.000, -2147483648));
 //        log.info("isPalindrome:{}", isPalindrome(121));
-
-        log.info(UUID.randomUUID().toString().replace("-", ""));
+//        log.info(UUID.randomUUID().toString().replace("-", ""));
+        log.info("{}", repeatedSubstringPattern("abaababaab"));
     }
 
     public static boolean isPalindrome(int x) {
@@ -90,5 +90,34 @@ public class Test {
             }
         }
         System.out.println(JSON.toJSONString(list));
+    }
+
+    public static boolean repeatedSubstringPattern(String s) {
+        if (s.length() == 1) {
+            return false;
+        }
+        char first = s.charAt(0);
+        StringBuilder sb = new StringBuilder();
+        sb.append(first);
+        for (int i = 1; i < s.length(); i++) {
+            if (first == s.charAt(i) && isSubstring(s, sb.toString())) {
+                return true;
+            } else {
+                sb.append(s.charAt(i));
+            }
+        }
+        return false;
+
+    }
+
+    public static boolean isSubstring(String s, String sub) {
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < s.length()) {
+            sb.append(sub);
+            if (sb.toString().equals(s)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

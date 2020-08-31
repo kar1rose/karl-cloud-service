@@ -7,8 +7,9 @@
     <Properties>
         <Property name="FILE_NAME">service-provider</Property>
         <Property name="FILE_PATH">/Users/arvato/logs/</Property>
-<!--        <property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />-->
-        <property name="LOG_PATTERN" value="[%date{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%level][%class][%line]:%message%n" />
+        <!--        <property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />-->
+        <property name="LOG_PATTERN"
+                  value="[%date{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%level][%class][%line]:%message%n"/>
     </Properties>
 
     <!-- 定义所有的appender -->
@@ -93,10 +94,10 @@
             <AppenderRef ref="errorLog"/>
         </logger>
 
-        <logger name="org.karl.service.provider.sys.mapper" level="DEBUG" additivity="false">
+        <logger name="org.karl.sh.provider" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
         </logger>
-        <logger name="org.mybatis" level="DEBUG" additivity="false">
+        <logger name="com.alibaba.nacos" level="error" additivity="false">
             <AppenderRef ref="Console"/>
         </logger>
         <!-- root logger 配置 -->
