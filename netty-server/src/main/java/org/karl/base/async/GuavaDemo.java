@@ -20,6 +20,8 @@ public class GuavaDemo {
     private static final Long KEEP_ALIVE_TIME = 200L;
     private static final int SLEEP = 2000;
 
+    private static final Logger log = LoggerFactory.getLogger("GuavaDemo");
+
     static class MainJob implements Runnable {
         boolean wash = false;
         boolean hot = false;
