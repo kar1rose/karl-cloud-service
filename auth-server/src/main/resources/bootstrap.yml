@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: karl-auth-server
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 139.224.83.117:8848
+        namespace: public
+      config:
+        server-addr: 139.224.83.117:8848
+        file-extension: yaml
+        namespace: public
+        group: DEFAULT_GROUP
+  datasource:
+    druid:
+      url: jdbc:mysql://139.224.83.117/karl?characterEncoding=utf8&useUnicode=true&useSSL=false
+      username: root
+      password: XYuqINlJOlyn3VRAWuBMeTrk41OsZ15Vn8R7LeaLKyXaOWhjpoDLWNawFYqfX+dx9jSUBL/UXj3YBloteji0xQ==
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 10
+      max-active: 200
+      min-idle: 5
+      max-wait: 60000
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 1 FROM DUAL
+      validation-query-timeout: 30000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      filters: stat,wall,slf4j
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJacvSK2RwuPljHHxon7i3+LE1Zw7ox/YCjVcMpxqTEShOE4BdqUPiWFh72TUhw6k+m+Sx0PzZQAiTntruNmvi8CAwEAAQ==;
+      filter:
+        config:
+          enabled: true
+#  cache:
+#    type: redis
+
+mybatis:
+  check-config-location: true
+
+#logging:
+#  config: classpath:log4j/dev.xml
+
+#\u66B4\u9732\u76D1\u63A7
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+server:
+  port: 8888

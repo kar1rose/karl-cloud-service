@@ -41,12 +41,9 @@ spring:
     type: redis
 
 mybatis:
-  type-aliases-package: org.karl.sh.provider.model
+  type-aliases-package: org.karl.sh.core.beans
   mapper-locations: classpath:mapper/**/*Mapper.xml
   check-config-location: true
-
-logging:
-  config: classpath:log4j/dev.xml
 
 #暴露监控
 management:
@@ -54,3 +51,17 @@ management:
     web:
       exposure:
         include: '*'
+
+server:
+  port: 8088
+
+security:
+  oauth2:
+    client:
+      client-id: client-A
+      client-secret: karl
+      scope: cuckoo-service
+      access-token-uri: http://172.23.41.184:8888/oauth/token
+      user-authorization-uri: http://172.23.41.184:8888/oauth/authorize
+    resource:
+      token-info-uri: http://172.23.41.184:8888/oauth/check_token #检查令牌

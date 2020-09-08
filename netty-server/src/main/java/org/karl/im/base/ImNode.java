@@ -1,6 +1,5 @@
 package org.karl.im.base;
 
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.concurrent.atomic.AtomicInteger;

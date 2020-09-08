@@ -3,7 +3,10 @@ package org.karl.sh.consumer.service;
 import org.karl.sh.consumer.service.hystrix.SysServiceFallbackImpl;
 import org.karl.sh.core.templates.ApiResult;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by KARL_ROSE on 2020/2/29 10:03

@@ -12,6 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -34,7 +35,7 @@ public class RedisConfiguration {
     public RedissonClient redisson() throws IOException {
         //从自定义配置文件加载redis集群配置
         Config config = Config.fromYAML(new ClassPathResource("redisson.yml").getInputStream());
-        logger.info("redisson配置:{}", config.toJSON());
+        //logger.info("redisson配置:{}", config.toJSON());
         return Redisson.create(config);
     }
 
@@ -67,6 +68,14 @@ public class RedisConfiguration {
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer());
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer());
         return redisTemplate;
+    }
+
+    @Bean
+    public StringRedisTemplate stringRedisTemplate(RedissonConnectionFactory factory) {
+        StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
+        stringRedisTemplate.setConnectionFactory(factory);
+        stringRedisTemplate.setKeySerializer(stringRedisSerializer());
+        return stringRedisTemplate;
     }
 
 

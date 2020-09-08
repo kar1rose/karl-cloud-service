@@ -1,14 +1,11 @@
 package org.karl.netty.encoder;
 
 import com.alibaba.fastjson.JSON;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import lombok.extern.slf4j.Slf4j;
 import org.karl.netty.model.User;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**

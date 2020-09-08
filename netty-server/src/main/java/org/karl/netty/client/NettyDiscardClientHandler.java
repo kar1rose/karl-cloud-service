@@ -3,11 +3,8 @@ package org.karl.netty.client;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelOutboundHandlerAdapter;
-import io.netty.channel.ChannelPromise;
 import lombok.extern.slf4j.Slf4j;
 
-import java.net.SocketAddress;
 import java.nio.charset.StandardCharsets;
 
 /**

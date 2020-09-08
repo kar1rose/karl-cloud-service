@@ -3,10 +3,7 @@ package org.karl.sh.provider.controller.good;
 import org.karl.sh.core.templates.ApiResult;
 import org.karl.sh.provider.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author KARL ROSE
@@ -27,5 +24,10 @@ public class GoodsController {
         } catch (RuntimeException e) {
             return ApiResult.error(e.getMessage());
         }
+    }
+
+    @GetMapping
+    public ApiResult<String> goods() {
+        return ApiResult.success("goods");
     }
 }

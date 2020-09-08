@@ -34,7 +34,7 @@ clusterServersConfig:
   # 订阅操作的负载均衡模式
   subscriptionMode: SLAVE
   # 只在从服务器读取
-  readMode: SLAVE
+  readMode: MASTER_SLAVE
   # 密码
   password: 8925cfe04a8c4ff5a7eee2d1f79de59f
   # 集群地址

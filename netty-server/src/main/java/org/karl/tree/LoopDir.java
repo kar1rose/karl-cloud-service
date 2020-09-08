@@ -1,6 +1,5 @@
 package org.karl.tree;
 
-import org.karl.base.async.CallableJoinDemo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

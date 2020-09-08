@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.karl.sh.auth.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="org.karl.sh.core.beans.sys.SysUser">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+        <result column="mail" jdbcType="VARCHAR" property="mail"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+    </resultMap>
+
+    <!-- <resultMap id="UserRoleMap" type="com.arvato.sh.cuckoo.base.model.sys.SysUser">
+         <id column="user_id" jdbcType="BIGINT" property="userId"/>
+         <result column="username" jdbcType="VARCHAR" property="username"/>
+         <result column="password" jdbcType="VARCHAR" property="password"/>
+         <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
+         <result column="domain" jdbcType="VARCHAR" property="domain"/>
+         <result column="brand_name" jdbcType="VARCHAR" property="brandName"/>
+         <result column="mail" jdbcType="VARCHAR" property="mail"/>
+         <result column="phone" jdbcType="VARCHAR" property="phone"/>
+         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+         <result column="gender" jdbcType="VARCHAR" property="gender"/>
+         <collection property="authorities" ofType="com.arvato.sh.cuckoo.base.model.sys.SysRole" column="role_id">
+             <id column="id" jdbcType="INTEGER" property="roleId"/>
+             <id column="role_code" jdbcType="VARCHAR" property="roleCode"/>
+             <id column="role_name" jdbcType="VARCHAR" property="roleName"/>
+         </collection>
+     </resultMap>-->
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        select su.USER_ID, USERNAME, NICKNAME, PASSWORD, EMAIL, AVATAR
+        from sys_user su
+        where su.USERNAME = #{username}
+    </select>
+</mapper>
