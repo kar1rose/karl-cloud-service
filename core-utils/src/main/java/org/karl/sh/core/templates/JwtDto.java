@@ -22,7 +22,6 @@ public class JwtDto implements Serializable {
 
     private int expires_in;
 
-    @JsonIgnore
     private String scope;
 
     private String jti;

@@ -1,8 +1,11 @@
-package org.karl.sh.provider.controller.good;
+package org.karl.sh.provider.controller.goods;
 
 import org.karl.sh.core.templates.ApiResult;
 import org.karl.sh.provider.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,6 +19,7 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
+    @PreAuthorize("hasAnyRole('admin')")
     @PutMapping("/{goodsId}/{count}")
     public ApiResult<String> decrement(@PathVariable Integer goodsId, @PathVariable Integer count) {
         try {
@@ -27,7 +31,7 @@ public class GoodsController {
     }
 
     @GetMapping
-    public ApiResult<String> goods() {
-        return ApiResult.success("goods");
+    public ApiResult<Authentication> goods() {
+        return ApiResult.success(SecurityContextHolder.getContext().getAuthentication());
     }
 }

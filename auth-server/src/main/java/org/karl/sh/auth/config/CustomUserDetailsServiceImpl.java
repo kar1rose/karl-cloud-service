@@ -1,11 +1,17 @@
 package org.karl.sh.auth.config;
 
 import org.karl.sh.auth.mapper.SysUserMapper;
+import org.karl.sh.core.beans.sys.SysAuth;
 import org.karl.sh.core.beans.sys.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author KARL.ROSE
@@ -29,12 +35,9 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("username not found:" + username);
         }
-        /*List<String> roles = sysUserService.getRoles(sysUser.getUserId());
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
-        sysUser.setAuthorities(authorities);
-        return sysUser;*/
+        List<SysAuth> authorities = new ArrayList<>();
+        authorities.add(new SysAuth("20200202","customer","customer"));
+        user.setAuthorities(authorities);
         return user;
-
     }
 }

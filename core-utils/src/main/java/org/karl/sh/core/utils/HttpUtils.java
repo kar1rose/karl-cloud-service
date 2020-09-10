@@ -9,6 +9,7 @@ import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.karl.sh.core.templates.BaseException;
@@ -34,7 +35,9 @@ import static java.net.Proxy.Type.HTTP;
 @Slf4j
 public class HttpUtils {
 
-    private static final int HTTP_CONN_TIME_OUT = 3000;
+    private static final int REQUEST_TIME_OUT = 5000;
+    private static final int CONN_TIME_OUT = 3000;
+    private static final int READ_TIME_OUT = 3000;
 
     private static final String UNKNOWN = "unknown";
 
@@ -42,10 +45,10 @@ public class HttpUtils {
     /**
      * 请求配置
      **/
-    public static final RequestConfig REQUEST_CONFIG = RequestConfig.custom().
-            setConnectionRequestTimeout(HTTP_CONN_TIME_OUT)
-            .setConnectTimeout(HTTP_CONN_TIME_OUT)
-            .setSocketTimeout(HTTP_CONN_TIME_OUT)
+    public static final RequestConfig REQUEST_CONFIG = RequestConfig.custom()
+            .setConnectionRequestTimeout(REQUEST_TIME_OUT)
+            .setConnectTimeout(CONN_TIME_OUT)
+            .setSocketTimeout(READ_TIME_OUT)
             .build();
 
 
@@ -89,7 +92,6 @@ public class HttpUtils {
     }
 
 
-
     /**
      * formData post请求
      *
@@ -98,30 +100,24 @@ public class HttpUtils {
      **/
     public static String sendPostByForm(String url, Map<String, String> headers, Map<String, String> params) throws BaseException {
         String result = "";
-        try {
-            CloseableHttpClient client = HttpClients.createDefault();
-            HttpPost post = new HttpPost(url);
-            post.setConfig(REQUEST_CONFIG);
-            if (headers != null) {
-                for (Map.Entry<String, String> header : headers.entrySet()) {
-                    post.setHeader(header.getKey(), header.getValue());
-                }
-            }
+        HttpPost post = new HttpPost(url);
+        post.setConfig(REQUEST_CONFIG);
+        for (Map.Entry<String, String> header : headers.entrySet()) {
+            post.addHeader(new BasicHeader(header.getKey(), header.getValue()));
+        }
 
-            List<BasicNameValuePair> pairs = new ArrayList<>();
-            if (params != null) {
-                for (Map.Entry<String, String> entry : params.entrySet()) {
-                    pairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
-                }
-            }
-            post.setEntity(new UrlEncodedFormEntity(pairs, StandardCharsets.UTF_8));
-            CloseableHttpResponse httpResponse = client.execute(post);
+        List<BasicNameValuePair> pairs = new ArrayList<>();
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            pairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+        }
+        post.setEntity(new UrlEncodedFormEntity(pairs, StandardCharsets.UTF_8));
+        try (CloseableHttpClient client = HttpClients.createDefault();
+             CloseableHttpResponse httpResponse = client.execute(post)) {
             log.debug("sendPost execute ...");
             HttpEntity httpEntity = httpResponse.getEntity();
             if (httpEntity != null) {
                 result = EntityUtils.toString(httpEntity, StandardCharsets.UTF_8);
             }
-            httpResponse.close();
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new BaseException(e.getMessage());
@@ -323,7 +319,6 @@ public class HttpUtils {
 
     /**
      * 发送get请求
-     *
      */
     public static String sendGet(URI uri) throws Exception {
         String content = "";

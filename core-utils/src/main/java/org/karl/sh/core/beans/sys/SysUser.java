@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author KARL ROSE
@@ -13,6 +14,8 @@ import java.util.Collection;
 @Data
 public class SysUser implements UserDetails {
 
+    private static final long serialVersionUID = -1L;
+
     private Long userId;
     private String username;
     private String nickname;
@@ -20,11 +23,7 @@ public class SysUser implements UserDetails {
     private String password;
     private String mail;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
+    private List<SysAuth> authorities;
 
     @Override
     public boolean isAccountNonExpired() {

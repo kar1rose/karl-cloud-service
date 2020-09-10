@@ -1,4 +1,4 @@
-package org.karl.sh.provider.config;
+package org.karl.sh.provider.config.database;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;

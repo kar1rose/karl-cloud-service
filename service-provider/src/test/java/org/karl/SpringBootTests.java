@@ -2,6 +2,7 @@ package org.karl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.karl.sh.provider.config.database.RedisConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author KARL ROSE
  * @date 2020/8/19 17:29
  **/
-@SpringBootTest(classes = {org.karl.sh.provider.config.RedisConfiguration.class})
+@SpringBootTest(classes = {RedisConfiguration.class})
 @RunWith(SpringRunner.class)
 public class SpringBootTests {
 
