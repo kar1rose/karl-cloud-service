@@ -4,8 +4,6 @@ import org.karl.sh.auth.mapper.SysUserMapper;
 import org.karl.sh.core.beans.sys.SysAuth;
 import org.karl.sh.core.beans.sys.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;

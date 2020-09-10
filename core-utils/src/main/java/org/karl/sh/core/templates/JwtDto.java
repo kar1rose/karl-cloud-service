@@ -1,6 +1,5 @@
 package org.karl.sh.core.templates;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.io.Serializable;

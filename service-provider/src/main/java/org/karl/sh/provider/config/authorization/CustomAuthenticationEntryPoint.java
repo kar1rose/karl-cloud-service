@@ -1,7 +1,6 @@
 package org.karl.sh.provider.config.authorization;
 
 import com.alibaba.fastjson.JSON;
-import org.karl.sh.core.templates.API_RESULT_CODE;
 import org.karl.sh.core.templates.ApiResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
