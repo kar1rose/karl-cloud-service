@@ -76,7 +76,7 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
     public TokenStore tokenStore() {
         RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
         redisTokenStore.setPrefix("karl-auth-token:");
-        redisTokenStore.setSerializationStrategy(new Oauth2JsonSerializationStrategy());
+//        redisTokenStore.setSerializationStrategy(new Oauth2JsonSerializationStrategy());
 //        JdbcTokenStore jdbcTokenStore = new JdbcTokenStore(dataSource);
         return redisTokenStore;
     }

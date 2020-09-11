@@ -1,5 +1,6 @@
 package org.karl.sh.provider.controller.goods;
 
+import org.karl.sh.core.constants.Auths;
 import org.karl.sh.core.templates.ApiResult;
 import org.karl.sh.provider.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
-    @PreAuthorize("hasAnyRole('admin')")
+    @PreAuthorize("hasAnyAuthority('" + Auths.ROLE_CUSTOMER + "')")
     @PutMapping("/{goodsId}/{count}")
     public ApiResult<String> decrement(@PathVariable Integer goodsId, @PathVariable Integer count) {
         try {

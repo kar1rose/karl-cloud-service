@@ -49,7 +49,7 @@ public class Oauth2ResourceConfig extends ResourceServerConfigurerAdapter {
     @Bean
     public RedisTokenStore tokenStore() {
         RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
-        redisTokenStore.setSerializationStrategy(new Oauth2JsonSerializationStrategy());
+//        redisTokenStore.setSerializationStrategy(new Oauth2JsonSerializationStrategy());
         redisTokenStore.setPrefix("karl-auth-token:");
         return redisTokenStore;
     }

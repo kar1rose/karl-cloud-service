@@ -97,6 +97,9 @@
         <logger name="org.karl.sh.provider" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
         </logger>
+        <!--<logger name="org.redisson" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+        </logger>-->
         <logger name="com.alibaba.nacos" level="error" additivity="false">
             <AppenderRef ref="Console"/>
         </logger>

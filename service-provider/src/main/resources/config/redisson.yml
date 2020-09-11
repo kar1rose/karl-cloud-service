@@ -7,9 +7,9 @@ clusterServersConfig:
   # 等待节点回复命令的时间。该时间从命令发送成功时开始计时。默认3000
   timeout: 3000
   # 命令失败重试次数
-  retryAttempts: 3
+  retryAttempts: 5
   # 命令重试发送时间间隔，单位：毫秒
-  retryInterval: 1500
+  retryInterval: 1000
   # 重新连接时间间隔，单位：毫秒
   reconnectionTimeout: 3000
   # 执行失败最大次数
@@ -52,7 +52,7 @@ threads: 0
 #这个线程池数量是在一个Redisson实例内，被其创建的所有分布式数据类型和服务，以及底层客户端所一同共享的线程池里保存的线程数量。默认2
 nettyThreads: 0
 # 编码方式 默认org.redisson.codec.JsonJacksonCodec
-codec: !<org.redisson.codec.JsonJacksonCodec> {}
+codec: !<org.redisson.codec.SerializationCodec> {}
 #传输模式
 transportMode: NIO
 # 分布式锁自动过期时间，防止死锁，默认30000

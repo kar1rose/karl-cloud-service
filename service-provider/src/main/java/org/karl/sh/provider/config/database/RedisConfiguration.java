@@ -1,9 +1,14 @@
 package org.karl.sh.provider.config.database;
 
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -13,6 +18,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.io.IOException;
 import java.time.Duration;
 
 /**
@@ -26,7 +32,7 @@ public class RedisConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisConfiguration.class);
 
-    /*@Bean
+    @Bean
     public RedissonClient redisson() throws IOException {
         //从自定义配置文件加载redis集群配置
         Config config = Config.fromYAML(new ClassPathResource("config/redisson.yml").getInputStream());
@@ -38,7 +44,7 @@ public class RedisConfiguration {
         RedissonConnectionFactory redissonConnectionFactory = new RedissonConnectionFactory(redisson);
 
         return redissonConnectionFactory;
-    }*/
+    }
 
     @Bean
     public StringRedisSerializer stringRedisSerializer() {
