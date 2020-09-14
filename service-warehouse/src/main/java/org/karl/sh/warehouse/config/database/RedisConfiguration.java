@@ -1,4 +1,4 @@
-package org.karl.sh.auth.config.db;
+package org.karl.sh.warehouse.config.database;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -13,6 +13,7 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -41,6 +42,7 @@ public class RedisConfiguration {
     @Bean
     public RedissonConnectionFactory redisConnectionFactory(RedissonClient redisson) {
         RedissonConnectionFactory redissonConnectionFactory = new RedissonConnectionFactory(redisson);
+
         return redissonConnectionFactory;
     }
 
@@ -62,20 +64,22 @@ public class RedisConfiguration {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
         // key的序列化类型
-//        redisTemplate.setKeySerializer(stringRedisSerializer());
-        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer());
+        /*redisTemplate.setKeySerializer(stringRedisSerializer());
+        redisTemplate.setHashKeySerializer(stringRedisSerializer());
         // value的序列化类型
-//        redisTemplate.setHashKeySerializer(stringRedisSerializer());
-        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer());
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer());
+        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer());*/
         return redisTemplate;
     }
 
-    /*@Bean
+    @Bean
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory factory) {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
         stringRedisTemplate.setConnectionFactory(factory);
+        stringRedisTemplate.setKeySerializer(stringRedisSerializer());
         return stringRedisTemplate;
-    }*/
+    }
+
 
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
