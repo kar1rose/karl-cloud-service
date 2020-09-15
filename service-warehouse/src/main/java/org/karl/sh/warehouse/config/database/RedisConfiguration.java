@@ -64,11 +64,11 @@ public class RedisConfiguration {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
         // key的序列化类型
-        /*redisTemplate.setKeySerializer(stringRedisSerializer());
+        redisTemplate.setKeySerializer(stringRedisSerializer());
         redisTemplate.setHashKeySerializer(stringRedisSerializer());
         // value的序列化类型
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer());
-        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer());*/
+        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer());
         return redisTemplate;
     }
 

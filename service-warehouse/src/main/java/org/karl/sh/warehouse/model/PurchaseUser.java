@@ -11,7 +11,7 @@ import java.util.Date;
  * @date 2020/8/12 下午3:31
  **/
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class SysUser implements  Serializable {
+public final class PurchaseUser implements  Serializable {
 
     private static final long serialVersionUID = 1L;
     /**
@@ -306,10 +306,10 @@ public final class SysUser implements  Serializable {
         this.roleName = roleName;
     }
 
-    public SysUser() {
+    public PurchaseUser() {
     }
 
-    public SysUser(String userId, String username, String nickname, String password, String email, Integer state, String ipAddress, String phone, String remark, String fids, String fkDepartId, String departName, String fkBrandId, String brandName, Integer isDelete, Integer isSuper, String createUser, Date createDatetime, String createDatetimeStr, String updateUser, Date updateDatetime) {
+    public PurchaseUser(String userId, String username, String nickname, String password, String email, Integer state, String ipAddress, String phone, String remark, String fids, String fkDepartId, String departName, String fkBrandId, String brandName, Integer isDelete, Integer isSuper, String createUser, Date createDatetime, String createDatetimeStr, String updateUser, Date updateDatetime) {
         this.userId = userId;
         this.username = username;
         this.nickname = nickname;
@@ -333,7 +333,7 @@ public final class SysUser implements  Serializable {
         this.updateDatetime = updateDatetime;
     }
 
-    public SysUser(String userId, String username, String nickname, String password) {
+    public PurchaseUser(String userId, String username, String nickname, String password) {
         this.userId = userId;
         this.username = username;
         this.nickname = nickname;

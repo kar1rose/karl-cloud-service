@@ -71,9 +71,6 @@ management:
       exposure:
         include: '*'
 
-server:
-  port: 8088
-
 logging:
   config: classpath:log4j/dev.xml
 

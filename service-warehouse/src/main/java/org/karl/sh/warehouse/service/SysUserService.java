@@ -1,7 +1,7 @@
 package org.karl.sh.warehouse.service;
 
 import org.karl.sh.warehouse.mapper.SysUserMapper;
-import org.karl.sh.warehouse.model.SysUser;
+import org.karl.sh.warehouse.model.PurchaseUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,7 +23,7 @@ public class SysUserService {
     private RedisTemplate<String,Object> redisTemplate;
 
     @Cacheable(key = "#username")
-    public SysUser getByUsername(String username) {
+    public PurchaseUser getByUsername(String username) {
         return sysUserMapper.selectByUsername(username);
     }
 

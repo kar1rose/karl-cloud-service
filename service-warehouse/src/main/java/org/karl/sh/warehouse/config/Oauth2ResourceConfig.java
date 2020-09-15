@@ -30,7 +30,7 @@ public class Oauth2ResourceConfig extends ResourceServerConfigurerAdapter {
         http.headers().frameOptions().disable();
         //登陆 验证码 swagger接口及js文件
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/actuator/**", "/login", "/code").permitAll()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/**").authenticated();
     }
 

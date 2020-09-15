@@ -5,7 +5,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.karl.sh.warehouse.model.SysUser;
+import org.karl.sh.warehouse.model.PurchaseUser;
 import org.karl.sh.warehouse.service.SysUserService;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -51,12 +51,12 @@ public class SysController {
     }
 
     @GetMapping("user/{username}")
-    public SysUser user(@PathVariable String username) {
-        SysUser sysUser = sysUserService.getByUsername(username);
-        if (sysUser != null) {
-            redisTemplate.opsForHash().put(SYS_USER_KEY, sysUser.getUserId(), sysUser);
+    public PurchaseUser user(@PathVariable String username) {
+        PurchaseUser purchaseUser = sysUserService.getByUsername(username);
+        if (purchaseUser != null) {
+            redisTemplate.opsForHash().put(SYS_USER_KEY, purchaseUser.getUserId(), purchaseUser);
         }
-        return sysUser;
+        return purchaseUser;
     }
 
     @PostMapping("user")
@@ -74,8 +74,8 @@ public class SysController {
                     int id = count.incrementAndGet();
                     logger.debug("锁定成功:{}", id);
                     //Thread.sleep(1500);
-                    SysUser sysUser = new SysUser(String.valueOf(id), UUID.randomUUID().toString(), "rose" + Math.random(), "password");
-                    redisTemplate.opsForHash().put(SYS_USER_KEY, String.valueOf(id), sysUser);
+                    PurchaseUser purchaseUser = new PurchaseUser(String.valueOf(id), UUID.randomUUID().toString(), "rose" + Math.random(), "password");
+                    redisTemplate.opsForHash().put(SYS_USER_KEY, String.valueOf(id), purchaseUser);
                     lock.unlock();
                     logger.debug("解锁完成:{}", id);
                 } catch (Exception e) {
