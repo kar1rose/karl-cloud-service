@@ -39,25 +39,25 @@ spring:
           enabled: true
   cache:
     type: redis
-#  redis:
-#    cluster:
-#      nodes:
-#        - 139.224.83.117:7001
-#        - 139.224.83.117:7002
-#        - 139.224.83.117:7003
-#        - 139.224.83.117:7004
-#        - 139.224.83.117:7005
-#        - 139.224.83.117:7006
-#      max-redirects: 5
-#    database: 0
-#    password: 8925cfe04a8c4ff5a7eee2d1f79de59f
-#    timeout: 3000
-#    jedis:
-#      pool:
-#        min-idle: 0
-#        max-wait: -1
-#        max-idle: 30
-#        max-active: 10
+  redis:
+    cluster:
+      nodes:
+        - 139.224.83.117:7001
+        - 139.224.83.117:7002
+        - 139.224.83.117:7003
+        - 139.224.83.117:7004
+        - 139.224.83.117:7005
+        - 139.224.83.117:7006
+      max-redirects: 5
+    database: 0
+    password: 8925cfe04a8c4ff5a7eee2d1f79de59f
+    timeout: 3000
+    jedis:
+      pool:
+        min-idle: 0
+        max-wait: -1
+        max-idle: 30
+        max-active: 10
 
 mybatis:
   check-config-location: true
