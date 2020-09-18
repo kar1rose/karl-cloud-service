@@ -161,19 +161,18 @@
 <script type="text/javascript">
 
     $("a.login").on("click", function () {
+
         const username = $("#username").val();
         const password = $("#password").val();
-        let data = new FormData();
-        data.append("username", username);
-        data.append("password", password);
-        data.append("grant_type", "password");
+        let data = {
+            "username": username,
+            "password": password,
+            "grant_type": "password"
+        }
         requestFormData("", data, request_method.post, function (data) {
-            if (data['code'] === '000000') {
-                notice(notice_type['success'], "登录成功");
-                window.location.href = "table.html";
-            } else {
-                notice(notice_type['rose'], data['msg']);
-            }
+            console.log(data);
+            notice(notice_type['success'], "登录成功");
+            // window.location.href = "table.html";
         })
     });
 

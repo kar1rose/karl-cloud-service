@@ -1,6 +1,8 @@
 package org.karl.sh.core.beans.sys;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
  * @date 2020/9/8 14:28
  **/
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SysUser implements UserDetails {
 
     private static final long serialVersionUID = -1L;

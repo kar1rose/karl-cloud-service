@@ -4,8 +4,8 @@ import org.karl.sh.auth.mapper.SysUserMapper;
 import org.karl.sh.core.beans.sys.SysAuth;
 import org.karl.sh.core.beans.sys.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -28,10 +28,10 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
      * @date 2020/5/18 12:39 下午
      **/
     @Override
-    public SysUser loadUserByUsername(String username) throws UsernameNotFoundException {
+    public SysUser loadUserByUsername(String username) throws BadCredentialsException {
         SysUser user = sysUserMapper.selectByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("username not found:" + username);
+            throw new BadCredentialsException("username not found:" + username);
         }
         List<SysAuth> authorities = new ArrayList<>();
         authorities.add(new SysAuth("20200202","customer","customer"));

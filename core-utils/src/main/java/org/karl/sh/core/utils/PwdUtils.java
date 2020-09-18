@@ -14,6 +14,10 @@ public class PwdUtils {
         return ENCODER.encode(password);
     }
 
+    public static boolean match(CharSequence rawPassword, String encodedPassword) {
+        return ENCODER.matches(rawPassword, encodedPassword);
+    }
+
     public static void main(String[] args) {
         System.out.println(encrypt("karl"));
     }

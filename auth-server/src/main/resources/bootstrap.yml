@@ -73,3 +73,5 @@ mybatis:
 #        include: '*'
 server:
   port: 8888
+
+

@@ -52,12 +52,8 @@ function requestJson(url, data, type, callback) {
         processData: false,
         dataType: 'json',
         beforeSend: function (xhr) {
-            //请求前
-            console.log("before...");
         },
         success: function (data) {
-            //请求成功
-            console.log("success...");
             callback(data);
         },
         error: function (xhr, textStatus, err) {
@@ -72,28 +68,28 @@ function requestJson(url, data, type, callback) {
     loading_selector.modal("hide");
 }
 
+//"http://127.0.0.1:8888/index/hello",//
 function requestFormData(url, data, type, callback) {
     loading_selector.modal("show");
     $.ajax({
-        url: login_url + "?username=" + data.get('username') + "&password=" + data.get('password') + "&grant_type=" + data.get('grant_type'),
+        url: login_url + "?username=" + data.username + "&password=" + data.password + "&grant_type=" + data.grant_type,
         type: type,
         cache: false,
-        contentType: false,
         processData: false,
         dataType: 'json',
+        crossDomain: true,
         beforeSend: function (xhr) {
-            console.log("before...");
             xhr.setRequestHeader('Authorization', 'Basic Y2xpZW50LUE6a2FybA==');
         },
         success: function (data) {
-            console.log("success...");
             callback(data)
         },
         error: function (xhr, textStatus, err) {
-            console.log("fail...", err);
+
         },
         complete: function (xhr, status) {
-            console.log("complete...", status);
+            console.log("xhr...", xhr);
+            notice(notice_type['danger'], "登陆失败");
         }
     });
     loading_selector.modal("hide");
