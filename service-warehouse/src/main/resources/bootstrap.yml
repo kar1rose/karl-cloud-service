@@ -71,6 +71,7 @@ management:
       exposure:
         include: '*'
 
+
 logging:
   config: classpath:log4j/dev.xml
 
@@ -83,4 +84,5 @@ logging:
 #      access-token-uri: http://172.23.41.184:8888/oauth/token
 #      user-authorization-uri: http://172.23.41.184:8888/oauth/authorize
 #    resource:
+
 #      token-info-uri: http://172.23.41.184:8888/oauth/check_token #检查令牌

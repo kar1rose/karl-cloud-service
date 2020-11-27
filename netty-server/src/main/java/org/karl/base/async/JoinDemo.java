@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JoinDemo {
     
+    private static final int SLEEP = 1000;
+    
     static class HotWaterThread extends Thread {
         public HotWaterThread() {
             super("烧水thread");

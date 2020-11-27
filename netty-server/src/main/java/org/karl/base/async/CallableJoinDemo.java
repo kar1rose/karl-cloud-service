@@ -14,6 +14,8 @@ import java.util.concurrent.FutureTask;
  **/
 @Slf4j(topic = "Callable Demo")
 public class CallableJoinDemo {
+
+    private static final int SLEEP = 1000;
     
     static class HotWaterJob implements Callable<Boolean> {
         @Override
