@@ -1,6 +1,8 @@
 spring:
   application:
     name: service-mail
+  profiles:
+    active: dev
   cloud:
     nacos:
       config:

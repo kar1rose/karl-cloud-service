@@ -175,10 +175,27 @@ public class Test {
         return sb.toString();
     }
 
+    public static int[] mostCompetitive(int[] nums, int k) {
+        int[] res = new int[k];
+        if (k == nums.length) {
+            return nums;
+        }
+        int index = 0;
+
+        while (index < k) {
+            int min = Integer.MAX_VALUE;
+            for (int i = index; i <= nums.length - k + index; i++) {
+                min = Math.min(min, nums[i]);
+            }
+            res[index++] = min;
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
 //        System.out.println(new Test().minOperationsMaxProfit(new int[]{10, 10, 6, 4, 7}, 3, 8));
 //        System.out.println(Arrays.toString(sortByBits(new int[]{1, 3, 5, 7, 9})));
-        System.out.println(findMinArrowShots(new int[][]{{1, 2}, {3, 4}, {5, 6}, {7, 8}}));
+//        System.out.println(findMinArrowShots(new int[][]{{1, 2}, {3, 4}, {5, 6}, {7, 8}}));
+        System.out.println(Arrays.toString(mostCompetitive(new int[]{3,5,2,6},2)));
     }
 }
