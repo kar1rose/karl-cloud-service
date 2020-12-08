@@ -7,10 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author KARL ROSE
@@ -38,6 +42,21 @@ public class SpringBootTests {
         for (int i = 0; i < 32; i++) {
             logger.info("{}={}", i, vo.getBit("test", i));
         }
+    }
+
+    private static final String key = "redis_test";
+
+    @Test
+    public void redisTest() {
+        ListOperations<String, String> lo = stringRedisTemplate.opsForList();
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i <= 1000000; i++) {
+            list.add("中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试中文测试");
+        }
+        logger.info("{} rows appended ", lo.rightPushAll(key, list));
+
+        logger.info("{} rows query", lo.size(key));
+
     }
 
 
