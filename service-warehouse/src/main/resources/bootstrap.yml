@@ -1,8 +1,8 @@
 spring:
   application:
-    name: service-provider-sys
-  #  profiles:
-  #    active: dev
+    name: service-warehouse
+  profiles:
+    active: dev
   cloud:
     nacos:
       discovery:
@@ -12,7 +12,7 @@ spring:
         server-addr: 139.224.83.117:8848
         file-extension: yaml
         namespace: public
-        group: DEFAULT_GROUP
+        group: KARL_CLOUD
   datasource:
     druid:
       url: jdbc:mysql://139.224.83.117/karl?characterEncoding=utf8&useUnicode=true&useSSL=false
@@ -84,5 +84,4 @@ logging:
 #      access-token-uri: http://172.23.41.184:8888/oauth/token
 #      user-authorization-uri: http://172.23.41.184:8888/oauth/authorize
 #    resource:
-
 #      token-info-uri: http://172.23.41.184:8888/oauth/check_token #检查令牌

@@ -5,8 +5,8 @@
 <configuration monitorInterval="5">
 
     <Properties>
-        <Property name="FILE_NAME">service-provider</Property>
-        <Property name="FILE_PATH">/Users/arvato/logs/</Property>
+        <Property name="FILE_NAME">service-warehouse</Property>
+        <Property name="FILE_PATH">logs/</Property>
         <!--        <property name="LOG_PATTERN" value="%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />-->
         <property name="LOG_PATTERN"
                   value="[%date{yyyy-MM-dd HH:mm:ss.SSS}][%thread][%level][%class][%line]:%message%n"/>
@@ -89,10 +89,10 @@
 
     <Loggers>
         <!-- 第三方的软件日志级别 -->
-        <logger name="org.springframework" level="info" additivity="false">
+        <!--<logger name="org.springframework" level="info" additivity="false">
             <AppenderRef ref="warnLog"/>
             <AppenderRef ref="errorLog"/>
-        </logger>
+        </logger>-->
 
         <logger name="org.karl.sh.warehouse" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>

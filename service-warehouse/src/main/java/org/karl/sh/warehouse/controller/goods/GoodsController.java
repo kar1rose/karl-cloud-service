@@ -4,14 +4,11 @@ import org.karl.sh.core.constants.Auths;
 import org.karl.sh.core.templates.ApiResult;
 import org.karl.sh.warehouse.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 
 /**
  * @author KARL ROSE
@@ -22,8 +19,6 @@ import javax.annotation.Resource;
 public class GoodsController {
 
     @Autowired
-    @Resource
-    @Qualifier
     private GoodsService goodsService;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
