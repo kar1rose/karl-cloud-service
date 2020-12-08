@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,5 +38,10 @@ public class IndexController {
             tokenStore.removeRefreshToken(accessToken.getRefreshToken());
         }
         return ApiResult.success();
+    }
+
+    @GetMapping("/demo")
+    public String demo() {
+        return "hello";
     }
 }
