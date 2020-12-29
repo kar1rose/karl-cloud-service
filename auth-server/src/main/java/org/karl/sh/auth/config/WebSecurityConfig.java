@@ -58,8 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/oauth/**").permitAll().and()
-                .authorizeRequests().antMatchers("/**").authenticated().and()
+        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/oauth/**").permitAll()
+                .antMatchers("/**").authenticated().and()
                 .logout()
                 .addLogoutHandler((request, response, authentication) -> {
                     String token = request.getParameter(OAuth2AccessToken.ACCESS_TOKEN);

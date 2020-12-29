@@ -7,12 +7,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +34,14 @@ public class SpringBootTests {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Test
+    public void testEvent(){
+        ServletContext sc = ContextLoader.getCurrentWebApplicationContext().getServletContext();
+        ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
+        TestEvent event = new TestEvent("hello world", "msg");
+        ac.publishEvent(event);
+    }
 
     @Test
     public void context() {
@@ -58,6 +70,8 @@ public class SpringBootTests {
         logger.info("{} rows query", lo.size(key));
 
     }
+
+
 
 
 }

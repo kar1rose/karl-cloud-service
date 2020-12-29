@@ -1,5 +1,8 @@
 package org.karl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 /**
@@ -7,6 +10,8 @@ import java.util.*;
  * @date 2020/9/23 15:38
  **/
 public class Test {
+
+    private static final Logger logger = LoggerFactory.getLogger(Test.class);
 
     public int minOperationsMaxProfit(int[] customers, int boardingCost, int runningCost) {
         /*HashMap<Integer, Integer> map = new HashMap<>();
@@ -65,7 +70,7 @@ public class Test {
         //bit[i]=bit[i>>1]+(i&1)
         for (int i = 1; i <= 10000; ++i) {
             bit[i] = bit[i >> 1] + (i & 1);
-            System.out.println("i=" + i + ",bit[i>>i]=" + bit[i >> i] + ",bit[i]=" + bit[i]);
+            logger.info("i=" + i + ",bit[i>>i]=" + bit[i >> i] + ",bit[i]=" + bit[i]);
         }
         list.sort((x, y) -> {
             if (bit[x] != bit[y]) {
@@ -229,6 +234,7 @@ public class Test {
         }
         return (int) max;
     }
+
     public static int[] mostCompetitive(int[] nums, int k) {
         int[] res = new int[k];
         if (k == nums.length) {
@@ -246,14 +252,70 @@ public class Test {
         return res;
     }
 
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, Character> map = new HashMap<>();
+        HashSet<Character> set = new HashSet<>();
+        for (String str : strs) {
+            char[] chars = str.toCharArray();
+            char x = chars[0];
+            for (int i = 1; i < str.length(); i++) {
+                x ^= chars[i];
+            }
+            map.put(str, x);
+            set.add(x);
+        }
+        List<List<String>> res = new ArrayList<>();
+        for (Character c : set) {
+            List<String> l = new ArrayList<>();
+            for (Map.Entry<String, Character> entry : map.entrySet()) {
+                if (entry.getValue() == c) {
+                    l.add(entry.getKey());
+                }
+            }
+            res.add(l);
+        }
+        return res;
+    }
+
+    public static int maxProfit(int[] prices, int fee) {
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < n; i++) {
+            dp[n][0] = Math.max(dp[n - 1][0], dp[n - 1][1] + prices[n] - fee);
+            dp[n][1] = Math.max(dp[n - 1][1], dp[n - 1][0] - prices[n]);
+        }
+        return dp[n - 1][0];
+
+    }
+
+    public int firstUniqChar(String s) {
+        int[] array = new int[26];
+        int n = s.length();
+        for (int i = 0; i < 26; i++) {
+            array[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if (array[c - 'a'] == 1) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
-//        System.out.println(new Test().minOperationsMaxProfit(new int[]{10, 10, 6, 4, 7}, 3, 8));
-//        System.out.println(Arrays.toString(sortByBits(new int[]{1, 3, 5, 7, 9})));
-//        System.out.println(findMinArrowShots(new int[][]{{1, 2}, {3, 4}, {5, 6}, {7, 8}}));
-        System.out.println(Arrays.toString(mostCompetitive(new int[]{3,5,2,6},2)));
-//        System.out.println(findMinArrowShots(new int[][]{{1, 2}, {3, 4}, {5, 6}, {7, 8}}));
-        System.out.println(Arrays.toString(searchRange(new int[]{5, 7, 7, 8, 8, 10}, 8)));
-
-
+//        logger.info(new Test().minOperationsMaxProfit(new int[]{10, 10, 6, 4, 7}, 3, 8));
+//        logger.info(Arrays.toString(sortByBits(new int[]{1, 3, 5, 7, 9})));
+//        logger.info(findMinArrowShots(new int[][]{{1, 2}, {3, 4}, {5, 6}, {7, 8}}));
+//        logger.info(Arrays.toString(mostCompetitive(new int[]{3,5,2,6},2)));
+//        logger.info(findMinArrowShots(new int[][]{{1, 2}, {3, 4}, {5, 6}, {7, 8}}));
+//        logger.info(Arrays.toString(searchRange(new int[]{5, 7, 7, 8, 8, 10}, 8)));
+//        logger.info("" + maxProfit(new int[]{1, 3, 2, 8, 4, 9}, 2));
+        if(logger.isDebugEnabled()){
+            logger.debug("debug");
+        }
+        logger.info("info");
     }
 }

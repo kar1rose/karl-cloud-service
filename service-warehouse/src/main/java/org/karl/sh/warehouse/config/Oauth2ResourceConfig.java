@@ -40,6 +40,7 @@ public class Oauth2ResourceConfig extends ResourceServerConfigurerAdapter {
         resources.stateless(true)
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .tokenStore(tokenStore());
+
     }
 
     /**
