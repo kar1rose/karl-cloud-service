@@ -1,19 +1,17 @@
 package org.karl;
 
+import java.util.UUID;
+
 /**
  * @author KARL ROSE
  * @date 2020/11/10 14:42
  **/
 public class Bar {
 
-    int a = 1;
-    static int b = 2;
-
-    public int sum(int c) {
-        return a + b + c;
-    }
 
     public static void main(String[] args) {
-        new Bar().sum(5);
+        for (int i = 0; i < 100; i++) {
+            System.out.println(UUID.randomUUID().toString().replace("-", ""));
+        }
     }
 }

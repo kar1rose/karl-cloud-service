@@ -2,10 +2,15 @@ package org.karl;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.karl.sh.core.beans.sys.SysUser;
+import org.karl.sh.warehouse.config.database.DruidConfiguration;
 import org.karl.sh.warehouse.config.database.RedisConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.ListOperations;
@@ -17,14 +22,16 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author KARL ROSE
  * @date 2020/8/19 17:29
  **/
-@SpringBootTest(classes = {RedisConfiguration.class})
+@SpringBootTest(classes = {DruidConfiguration.class})
 @RunWith(SpringRunner.class)
 public class SpringBootTests {
 
@@ -37,17 +44,20 @@ public class SpringBootTests {
 
     @Test
     public void testEvent(){
-        ServletContext sc = ContextLoader.getCurrentWebApplicationContext().getServletContext();
-        ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
-        TestEvent event = new TestEvent("hello world", "msg");
-        ac.publishEvent(event);
+        ServletContext sc = Objects.requireNonNull(ContextLoader.getCurrentWebApplicationContext()).getServletContext();
+        assert sc != null;
+        WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
+        DefaultListableBeanFactory beanFactory = (DefaultListableBeanFactory)WebApplicationContextUtils.getWebApplicationContext(sc);
+        SysUser user = new SysUser();
+        BeanDefinition beanDefinition = new GenericBeanDefinition();
+        beanDefinition.setBeanClassName(user.getClass().getName());
+        assert beanFactory != null;
+        beanFactory.registerBeanDefinition(user.getClass().getName(), beanDefinition);
     }
 
     @Test
     public void context() {
         ValueOperations<String, String> vo = stringRedisTemplate.opsForValue();
-//        HashOperations<String, String, Object> ho = redisTemplate.opsForHash();
-//        logger.info("user:{}", ho.get("USER", "0095BB5AF7B7"));
         vo.set("test", "rose");
         logger.info(vo.get("abc"));
         logger.info(vo.get("test"));

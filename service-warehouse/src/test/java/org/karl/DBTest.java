@@ -14,6 +14,7 @@ public class DBTest {
         Connection connection = DriverManager.getConnection("jdbc:mysql://139.224.83.117/karl?characterEncoding=utf8&useUnicode=true&useSSL=false", "root", "P@ssw0rd@2020");
         Statement statement = connection.createStatement();
         ResultSet resultset = statement.executeQuery("select * from goods");
+
         ResultSetMetaData metaData = resultset.getMetaData();
         int count = metaData.getColumnCount();
         for (int i = 1; i <= count; i++) {
