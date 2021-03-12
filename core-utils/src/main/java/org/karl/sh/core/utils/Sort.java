@@ -110,7 +110,6 @@ public class Sort {
 //        chooseSort(array);
         System.out.println(Arrays.toString(array));
 //        System.out.println(maxScore(array, 3));
-        ArrayList
     }
 
 
