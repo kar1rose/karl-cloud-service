@@ -16,6 +16,7 @@ public class SpringBootTests {
 
     private static final Logger logger = LoggerFactory.getLogger(SpringBootTests.class);
 
+
     /**
      * 使用RocketMq的生产者
      */
