@@ -8,32 +8,36 @@ spring:
         file-extension: yaml
       discovery:
         server-addr: 139.224.83.117:8848
-    sentinel:
-      transport:
-        dashboard: 127.0.0.1:8849
-      eager: true
+    #    sentinel:
+    #      transport:
+    #        dashboard: 127.0.0.1:8849
+    #      eager: true
     gateway:
       discovery:
         locator:
           enabled: true
       routes:
-        - id: service-consumer-sys
-          uri: lb://service-consumer-sys
+        - id: service-warehouse
+          uri: lb://service-warehouse
           predicates:
-            - Method=GET,POST
-            - Path=/api-c/**
+#            - Method=GET,POST
+            - Path=/warehouse/**
           filters:
             - StripPrefix=1
-        - id: service-provider-sys
-          uri: lb://service-provider-sys
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+        - id: service-purchase
+          uri: lb://service-purchase
           predicates:
-            - Method=GET,POST
-            - Path=/api-s/**
+#            - Method=GET,POST
+            - Path=/purchase/**
           filters:
             - StripPrefix=1
 
 server:
-  port: 9000
+  port: 8888
 
 
 logging:

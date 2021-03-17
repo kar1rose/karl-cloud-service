@@ -32,7 +32,7 @@ const request_method = {
     "delete": "DELETE"
 };
 
-const login_url = "http://172.23.41.184:8888/oauth/token";
+const login_url = "http://172.23.41.184:9000/oauth/token";
 
 /**
  * 封装ajax请求
@@ -76,7 +76,6 @@ function requestFormData(url, data, type, callback) {
         type: type,
         cache: false,
         processData: false,
-        dataType: 'json',
         crossDomain: true,
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', 'Basic Y2xpZW50LUE6a2FybA==');

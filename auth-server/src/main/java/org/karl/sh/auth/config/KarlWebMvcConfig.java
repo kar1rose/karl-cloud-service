@@ -1,12 +1,15 @@
 package org.karl.sh.auth.config;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
  * @author KARL.ROSE
  * @date 2020/5/18 3:32 下午
  **/
-//@Configuration
+@Configuration
 public class KarlWebMvcConfig extends WebMvcConfigurationSupport {
 
     /**
@@ -14,14 +17,14 @@ public class KarlWebMvcConfig extends WebMvcConfigurationSupport {
      *
      * @param registry 拦截器注册信息
      */
-    /*@Override
+    @Override
     protected void addInterceptors(InterceptorRegistry registry) {
 //        registry.addInterceptor(new IpInterceptor()).addPathPatterns("/**");
 //        registry.addInterceptor(new UserInfoInterceptor()).addPathPatterns("/**").excludePathPatterns(HttpOpenUrl.URL);
         super.addInterceptors(registry);
-    }*/
+    }
 
-    /*@Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //解决静态资源访问问题
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
@@ -30,6 +33,6 @@ public class KarlWebMvcConfig extends WebMvcConfigurationSupport {
         // 解决swagger的js文件无法访问
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
         super.addResourceHandlers(registry);
-    }*/
+    }
 
 }
