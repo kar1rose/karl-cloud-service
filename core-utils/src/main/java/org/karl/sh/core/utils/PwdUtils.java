@@ -19,6 +19,6 @@ public class PwdUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(encrypt("karl"));
+        System.out.println(encrypt("nacos"));
     }
 }

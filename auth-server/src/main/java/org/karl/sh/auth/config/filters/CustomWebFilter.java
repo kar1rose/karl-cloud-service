@@ -1,5 +1,7 @@
 package org.karl.sh.auth.config.filters;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -20,6 +22,8 @@ import java.io.IOException;
 @WebFilter(filterName = "customWebFilter", urlPatterns = "/*")
 public class CustomWebFilter implements Filter {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomWebFilter.class);
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
@@ -37,11 +41,11 @@ public class CustomWebFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-
+        logger.info("===============init()===============");
     }
 
     @Override
     public void destroy() {
-
+        logger.info("===============destroy()===============");
     }
 }
