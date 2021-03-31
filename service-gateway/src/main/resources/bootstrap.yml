@@ -1,24 +1,25 @@
 spring:
   application:
-    name: service-gateway
+    name: @artifactId@
+  profiles:
+    active: @profiles.active@
   cloud:
     nacos:
-      config:
-        server-addr: 139.224.83.117:8848
-        file-extension: yaml
       discovery:
-        server-addr: 139.224.83.117:8848
-    #    sentinel:
-    #      transport:
-    #        dashboard: 127.0.0.1:8849
-    #      eager: true
+        server-addr: @nacos.discovery.server@
+        namespace: @nacos.discovery.namespace@
+      config:
+        server-addr: @nacos.discovery.server@
+        file-extension: yaml
+        namespace: @nacos.discovery.namespace@
+        group: @nacos.group@
     gateway:
       discovery:
         locator:
           enabled: true
       routes:
-        - id: service-warehouse
-          uri: lb://service-warehouse
+        - id: mcp-warehouse
+          uri: lb://mcp-warehouse
           predicates:
 #            - Method=GET,POST
             - Path=/warehouse/**
@@ -28,8 +29,8 @@ spring:
             locator:
               enabled: true
               lower-case-service-id: true
-        - id: service-purchase
-          uri: lb://service-purchase
+        - id: mcp-purchase
+          uri: lb://mcp-purchase
           predicates:
 #            - Method=GET,POST
             - Path=/purchase/**
@@ -38,7 +39,6 @@ spring:
 
 server:
   port: 8888
-
 
 logging:
   level:

@@ -1,18 +1,18 @@
 spring:
   application:
-    name: service-purchase
+    name: @artifactId@
   profiles:
-    active: dev
+    active: @profiles.active@
   cloud:
     nacos:
       discovery:
-        server-addr: 139.224.83.117:8848
-        namespace: public
+        server-addr: @nacos.discovery.server@
+        namespace: @nacos.discovery.namespace@
       config:
-        server-addr: 139.224.83.117:8848
+        server-addr: @nacos.discovery.server@
         file-extension: yaml
-        namespace: public
-        group: KARL_CLOUD
+        namespace: @nacos.discovery.namespace@
+        group: @nacos.group@
   datasource:
     druid:
       url: jdbc:mysql://139.224.83.117/karl?characterEncoding=utf8&useUnicode=true&useSSL=false
@@ -54,14 +54,14 @@ rocketmq:
   producer:
     isOnOff: on
     groupName: ${spring.application.name}
-    namesrvAddr: 139.224.83.117:9876
+    nameServerAddr: 139.224.83.117:9876
     maxMessageSize: 4096
     sendMsgTimeout: 3000
     retryTimesWhenSendFailed: 0
   consumer:
     isOnOff: on
     groupName: ${spring.application.name}
-    namesrvAddr: 139.224.83.117:9876
+    nameServerAddr: 139.224.83.117:9876
     topics: KarlTopic
     consumeThreadMin: 20
     consumeThreadMax: 64

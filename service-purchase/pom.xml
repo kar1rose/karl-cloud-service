@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.karl</groupId>
-        <artifactId>rose-cloud</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>micro-cloud-platform</artifactId>
+        <version>1.0</version>
     </parent>
-    <artifactId>service-purchase</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>mcp-purchase</artifactId>
+    <version>0.1</version>
     <name>service-purchase</name>
     <description>Demo project for Spring Boot</description>
 
@@ -55,9 +55,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba.rocketmq</groupId>
+            <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
-            <version>3.2.6</version>
         </dependency>
 
         <dependency>
