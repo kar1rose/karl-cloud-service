@@ -12,10 +12,10 @@
     <modules>
         <module>core-utils</module>
         <module>auth-server</module>
-        <module>service-gateway</module>
-        <module>service-mail</module>
-        <module>service-purchase</module>
-        <module>service-warehouse</module>
+        <module>mcp-gateway</module>
+        <module>mcp-notify</module>
+        <module>mcp-purchase</module>
+        <module>mcp-warehouse</module>
     </modules>
 
     <parent>

@@ -9,7 +9,7 @@
     </parent>
     <artifactId>mcp-warehouse</artifactId>
     <version>0.1</version>
-    <name>service-warehouse</name>
+    <name>mcp-warehouse</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
