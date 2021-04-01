@@ -79,3 +79,8 @@ logging:
     root: info
     org.apache.http: error
     com.alibaba.nacos: error
+
+snowflake:
+  key:
+    dataId: 20
+    machineId: 20
