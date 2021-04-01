@@ -1,8 +1,8 @@
 spring:
   application:
-    name: @artifactId@
+    name: mcp-warehouse
   profiles:
-    active: @profiles.active@
+    active: '@profiles.active@'
   cloud:
     nacos:
       discovery:
