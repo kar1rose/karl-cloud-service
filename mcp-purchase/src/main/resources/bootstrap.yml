@@ -19,8 +19,8 @@ spring:
       username: root
       password: XYuqINlJOlyn3VRAWuBMeTrk41OsZ15Vn8R7LeaLKyXaOWhjpoDLWNawFYqfX+dx9jSUBL/UXj3YBloteji0xQ==
       driver-class-name: com.mysql.cj.jdbc.Driver
-      initial-size: 5
-      max-active: 20
+      initial-size: 20
+      max-active: 200
       min-idle: 5
       max-wait: 60000
       pool-prepared-statements: false
@@ -39,37 +39,48 @@ spring:
           enabled: true
   cache:
     type: redis
-  redis:
-    cluster:
-      nodes:
-        - 139.224.83.117:7001
-        - 139.224.83.117:7002
-        - 139.224.83.117:7003
-        - 139.224.83.117:7004
-        - 139.224.83.117:7005
-        - 139.224.83.117:7006
-      max-redirects: 5
-    database: 0
-    password: 8925cfe04a8c4ff5a7eee2d1f79de59f
-    timeout: 3000
-    jedis:
-      pool:
-        min-idle: 0
-        max-wait: -1
-        max-idle: 30
-        max-active: 10
 
 mybatis:
+  type-aliases-package: org.karl.sh.provider.model
+  mapper-locations: classpath:mapper/**/*Mapper.xml
   check-config-location: true
 
-#logging:
-#  config: classpath:log4j/dev.xml
 
-#\u66B4\u9732\u76D1\u63A7
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
+feign:
+  hystrix:
+    enabled: true
 
+rocketmq:
+  producer:
+    isOnOff: on
+    groupName: ${spring.application.name}
+    nameServerAddr: 139.224.83.117:9876
+    maxMessageSize: 4096
+    sendMsgTimeout: 3000
+    retryTimesWhenSendFailed: 0
+  consumer:
+    isOnOff: on
+    groupName: ${spring.application.name}
+    nameServerAddr: 139.224.83.117:9876
+    topics: KarlTopic
+    consumeThreadMin: 20
+    consumeThreadMax: 64
+    consumeMessageBatchMaxSize: 1
 
+#暴露监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  level:
+    root: info
+    org.apache.http: error
+    com.alibaba.nacos: error
+
+snowflake:
+  key:
+    dataId: 20
+    machineId: 20

@@ -5,26 +5,38 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.karl</groupId>
-    <artifactId>rose-cloud</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>micro-cloud-platform</artifactId>
+    <version>1.0</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>core-utils</module>
         <module>auth-server</module>
-        <module>service-gateway</module>
-        <module>netty-server</module>
-        <module>service-mail</module>
-        <module>service-purchase</module>
-        <module>service-warehouse</module>
+        <module>mcp-gateway</module>
+        <module>mcp-notify</module>
+        <module>mcp-purchase</module>
+        <module>mcp-warehouse</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.16.RELEASE</version>
-        <relativePath/>
     </parent>
+
+    <properties>
+        <redisson.version>3.10.7</redisson.version>
+        <mysql-connector.version>8.0.21</mysql-connector.version>
+        <cloud.version>Greenwich.RELEASE</cloud.version>
+        <alibaba-cloud.version>0.2.2.RELEASE</alibaba-cloud.version>
+        <druid.version>1.1.10</druid.version>
+        <!--after 4.3.1,the version of clients and server must be the same-->
+        <rocketmq.version>4.7.1</rocketmq.version>
+        <mybatis.version>2.0.1</mybatis.version>
+        <!-- 指明版本，解决redis存储出现的问题：
+        java.lang.NoSuchMethodError: org.springframework.data.redis.connection.RedisConnection.set([B[B)V问题 -->
+        <security.oauth.version>2.3.6.RELEASE</security.oauth.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -37,7 +49,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Greenwich.RELEASE</version>
+                <version>${cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -45,7 +57,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>0.2.2.RELEASE</version>
+                <version>${alibaba-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -53,31 +65,40 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.1.10</version>
+                <version>${druid.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.0.1</version>
+                <version>${mybatis.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.21</version>
+                <version>${mysql-connector.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security.oauth</groupId>
                 <artifactId>spring-security-oauth2</artifactId>
-                <!-- 指明版本，解决redis存储出现的问题：java.lang.NoSuchMethodError: org.springframework.data.redis.connection.RedisConnection.set([B[B)V问题 -->
-                <version>2.3.6.RELEASE</version>
+                <version>${security.oauth.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>3.10.7</version>
+                <version>${redisson.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <!--<dependency>
+                <groupId>com.alibaba.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
@@ -115,5 +136,65 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+                <nacos.config.server>139.224.83.117:8848</nacos.config.server>
+                <nacos.config.namespace>public</nacos.config.namespace>
+                <nacos.discovery.server>139.224.83.117:8848</nacos.discovery.server>
+                <nacos.discovery.namespace>public</nacos.discovery.namespace>
+                <nacos.group>KARL_CLOUD</nacos.group>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profiles.active>prod</profiles.active>
+                <nacos.config.server>139.224.83.117:8848</nacos.config.server>
+                <nacos.config.namespace>public</nacos.config.namespace>
+                <nacos.discovery.server>139.224.83.117:8848</nacos.discovery.server>
+                <nacos.discovery.namespace>public</nacos.discovery.namespace>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--开启过滤，用指定的参数替换directory下的文件中的参数-->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 
 </project>

@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: @profiles.active@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: @nacos.discovery.server@
+        namespace: @nacos.discovery.namespace@
+      config:
+        server-addr: @nacos.discovery.server@
+        file-extension: yaml
+        namespace: @nacos.discovery.namespace@
+        group: @nacos.group@
+  mail:
+    host: smtp.qq.com
+    username: kar1rose@qq.com
+    password: fjxgxywqbdaacahf
+    default-encoding: UTF-8
+    port: 465
+    properties:
+      mail:
+        debug: false
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory

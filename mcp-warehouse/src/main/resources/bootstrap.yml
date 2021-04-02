@@ -19,8 +19,8 @@ spring:
       username: root
       password: XYuqINlJOlyn3VRAWuBMeTrk41OsZ15Vn8R7LeaLKyXaOWhjpoDLWNawFYqfX+dx9jSUBL/UXj3YBloteji0xQ==
       driver-class-name: com.mysql.cj.jdbc.Driver
-      initial-size: 5
-      max-active: 20
+      initial-size: 10
+      max-active: 200
       min-idle: 5
       max-wait: 60000
       pool-prepared-statements: false
@@ -39,37 +39,49 @@ spring:
           enabled: true
   cache:
     type: redis
-  redis:
-    cluster:
-      nodes:
-        - 139.224.83.117:7001
-        - 139.224.83.117:7002
-        - 139.224.83.117:7003
-        - 139.224.83.117:7004
-        - 139.224.83.117:7005
-        - 139.224.83.117:7006
-      max-redirects: 5
-    database: 0
-    password: 8925cfe04a8c4ff5a7eee2d1f79de59f
-    timeout: 3000
-    jedis:
-      pool:
-        min-idle: 0
-        max-wait: -1
-        max-idle: 30
-        max-active: 10
+#  redis:
+#    cluster:
+#      nodes:
+#        - 139.224.83.117:7001
+#        - 139.224.83.117:7002
+#        - 139.224.83.117:7003
+#        - 139.224.83.117:7004
+#        - 139.224.83.117:7005
+#        - 139.224.83.117:7006
+#      max-redirects: 5
+#    database: 0
+#    password: 8925cfe04a8c4ff5a7eee2d1f79de59f
+#    timeout: 3000
+#    jedis:
+#      pool:
+#        min-idle: 0
+#        max-wait: -1
+#        max-idle: 30
+#        max-active: 10
 
 mybatis:
+  type-aliases-package: org.karl.sh.core.beans
+  mapper-locations: classpath:mapper/**/*Mapper.xml
   check-config-location: true
 
-#logging:
-#  config: classpath:log4j/dev.xml
-
-#\u66B4\u9732\u76D1\u63A7
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
+#暴露监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 
+logging:
+  config: classpath:log4j/dev.xml
+
+#security:
+#  oauth2:
+#    client:
+#      client-id: client-A
+#      client-secret: karl
+#      scope: cuckoo-service
+#      access-token-uri: http://172.23.41.184:8888/oauth/token
+#      user-authorization-uri: http://172.23.41.184:8888/oauth/authorize
+#    resource:
+#      token-info-uri: http://172.23.41.184:8888/oauth/check_token #检查令牌
