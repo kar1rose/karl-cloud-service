@@ -21,7 +21,6 @@ spring:
         - id: mcp-warehouse
           uri: lb://mcp-warehouse
           predicates:
-#            - Method=GET,POST
             - Path=/warehouse/**
           filters:
             - StripPrefix=1
@@ -36,6 +35,25 @@ spring:
             - Path=/purchase/**
           filters:
             - StripPrefix=1
+  redis:
+    cluster:
+      nodes:
+        - 139.224.83.117:7001
+        - 139.224.83.117:7002
+        - 139.224.83.117:7003
+        - 139.224.83.117:7001
+        - 139.224.83.117:7002
+        - 139.224.83.117:7003
+      max-redirects: 5
+    database: 0
+    password: 8925cfe04a8c4ff5a7eee2d1f79de59f
+    timeout: 3000
+    jedis:
+      pool:
+        min-idle: 0
+        max-wait: -1
+        max-idle: 30
+        max-active: 10
 
 server:
   port: 8888
@@ -43,3 +61,4 @@ server:
 logging:
   level:
     org.springframework.cloud.gateway: debug
+    com.alibaba.nacos.client.naming: error
