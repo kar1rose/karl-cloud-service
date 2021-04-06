@@ -26,9 +26,6 @@ public class RateLimitServiceImpl implements IRateLimitService {
 
     private static final String REDIS_RATE_LIMIT_KEY_ROOT = "RATE_LIMIT_KEY:";
 
-//    @Autowired
-//    private RedisTemplate<String, Object> redisTemplate;
-
     @Autowired
     private RedissonClient redissonClient;
 
@@ -38,19 +35,5 @@ public class RateLimitServiceImpl implements IRateLimitService {
         RRateLimiter rateLimiter = redissonClient.getRateLimiter(key);
         rateLimiter.trySetRate(RateType.OVERALL, 10, 1, RateIntervalUnit.MINUTES);
         return rateLimiter.tryAcquire(1);
-        /*return redisTemplate.execute((RedisCallback<Boolean>) redisConnection -> {
-            Jedis jedis = (Jedis) redisConnection.getNativeConnection();
-            long count = Long.parseLong(jedis.get(key));
-            log.info("当前请求数:{}", count);
-            if (count >= limitCount) {
-                return Boolean.FALSE;
-            }
-            count = jedis.incr(key);
-            if (count >= limitCount) {
-                return Boolean.FALSE;
-            }
-            jedis.expire(key, 30);
-            return Boolean.TRUE;
-        });*/
     }
 }
