@@ -18,6 +18,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.karl</groupId>
+            <artifactId>core-utils</artifactId>
+        </dependency>
         <!--引入配置中心阿里巴巴-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

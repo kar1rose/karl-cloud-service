@@ -1,50 +1,55 @@
 package org.karl.service.gateway.clients;
 
-import org.karl.sh.core.utils.JsonUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.karl.sh.core.templates.ApiResult;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
 import reactor.core.publisher.Mono;
 
-import javax.xml.ws.Response;
+import java.util.Map;
 
 /**
  * @author ROSE
  * @date 2021/4/6 20:28
  **/
-public abstract class AbstractBaseClient {
+public abstract class AbstractBaseClient implements IBaseClient {
 
-    @Autowired
-    private WebClient webClient;
 
-    private Object data;
+    @Override
+    public ApiResult<Object> get(String url, Map<String, String> params, Map<String, String> headers) {
+        Mono<ApiResult<Object>> mono = WebClient.create(url).get()
+                .uri(uriBuilder -> {
+                    params.forEach(uriBuilder::queryParam);
+                    return uriBuilder.build();
+                })
+                .headers(head -> headers.forEach(head::add))
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<ApiResult<Object>>() {
+                });
+        return mono.block();
+    }
 
-    /*protected Object data(String url) {
-        Mono<Object> mono = webClient.post().uri(url).retrieve().bodyToMono(Object.class);
-
-    }*/
-
-    public static void main(String[] args) {
-        Mono<ClientResponse> mono = WebClient.create("http://127.0.0.1:8080/mail").get().uri(uriBuilder -> uriBuilder
-//                .scheme("http")
-//                .host("127.0.0.1").port(8080).path("mail")
-                .queryParam("name", "rose")
-                .build()).exchange();
-        /*mono.flatMap(clientResponse -> {
-            if (clientResponse.statusCode() != HttpStatus.OK) {
-                System.out.println("error......");
-            }
-            return clientResponse.bodyToMono(String.class);
-        });*/
+    @Override
+    public ApiResult<Object> post(String url, Map<String, String> params, Map<String, String> headers) {
+        Mono<ClientResponse> mono = WebClient.create(url).post()
+                .uri(uriBuilder -> {
+                    params.forEach(uriBuilder::queryParam);
+                    return uriBuilder.build();
+                })
+                .headers(head -> headers.forEach(head::add))
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .exchange();
         ClientResponse response = mono.block();
         assert response != null;
-        Mono<ResponseEntity<String>> result = response.toEntity(String.class);
-        ResponseEntity<String> s = result.block();
+        Mono<ResponseEntity<ApiResult<Object>>> result = response.toEntity(new ParameterizedTypeReference<ApiResult<Object>>() {
+        });
+        ResponseEntity<ApiResult<Object>> s = result.block();
         assert s != null;
-        System.out.println(s.getBody());
+        return s.getBody();
     }
+
 
 }

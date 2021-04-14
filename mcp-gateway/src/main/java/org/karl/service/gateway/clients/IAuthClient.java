@@ -1,6 +1,5 @@
 package org.karl.service.gateway.clients;
 
-import feign.Response;
 import org.karl.service.gateway.config.AuthCheckDecoder;
 import org.karl.sh.core.beans.sys.AuthTokenCheckDto;
 import org.karl.sh.core.constants.AppNames;
