@@ -1,4 +1,4 @@
-package org.karl.sh.auth.controller;
+package org.karl.sh.auth.config;
 
 import org.karl.sh.core.templates.ApiResult;
 import org.karl.sh.core.templates.BaseException;

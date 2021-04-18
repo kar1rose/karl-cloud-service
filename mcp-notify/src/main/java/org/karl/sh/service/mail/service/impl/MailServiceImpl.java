@@ -1,12 +1,12 @@
 package org.karl.sh.service.mail.service.impl;
 
-import org.karl.sh.service.mail.KService;
 import org.karl.sh.service.mail.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  * @author KARL ROSE
  * @date 2020/3/24 13:00
  **/
-@KService
+@Service
 public class MailServiceImpl implements MailService {
 
 

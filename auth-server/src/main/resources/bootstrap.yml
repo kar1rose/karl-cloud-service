@@ -3,6 +3,7 @@ spring:
     name: @artifactId@
   profiles:
     active: @profiles.active@
+    include: redis.yml
   cloud:
     nacos:
       discovery:
@@ -13,59 +14,17 @@ spring:
         file-extension: yaml
         namespace: @nacos.discovery.namespace@
         group: @nacos.group@
-  datasource:
-    druid:
-      url: jdbc:mysql://139.224.83.117/karl?characterEncoding=utf8&useUnicode=true&useSSL=false
-      username: root
-      password: XYuqINlJOlyn3VRAWuBMeTrk41OsZ15Vn8R7LeaLKyXaOWhjpoDLWNawFYqfX+dx9jSUBL/UXj3YBloteji0xQ==
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      initial-size: 5
-      max-active: 20
-      min-idle: 5
-      max-wait: 60000
-      pool-prepared-statements: false
-      max-pool-prepared-statement-per-connection-size: 20
-      validation-query: SELECT 1 FROM DUAL
-      validation-query-timeout: 30000
-      test-on-borrow: false
-      test-on-return: false
-      test-while-idle: true
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      filters: stat,wall,slf4j
-      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJacvSK2RwuPljHHxon7i3+LE1Zw7ox/YCjVcMpxqTEShOE4BdqUPiWFh72TUhw6k+m+Sx0PzZQAiTntruNmvi8CAwEAAQ==;
-      filter:
-        config:
-          enabled: true
-  cache:
-    type: redis
-  redis:
-    cluster:
-      nodes:
-        - 139.224.83.117:7001
-        - 139.224.83.117:7002
-        - 139.224.83.117:7003
-        - 139.224.83.117:7004
-        - 139.224.83.117:7005
-        - 139.224.83.117:7006
-      max-redirects: 5
-    database: 0
-    password: 8925cfe04a8c4ff5a7eee2d1f79de59f
-    timeout: 3000
-    jedis:
-      pool:
-        min-idle: 0
-        max-wait: -1
-        max-idle: 30
-        max-active: 10
+
 
 mybatis:
   check-config-location: true
+  configuration:
+    cache-enabled: true
+
 
 #logging:
 #  config: classpath:log4j/dev.xml
 
-#\u66B4\u9732\u76D1\u63A7
 #management:
 #  endpoints:
 #    web:

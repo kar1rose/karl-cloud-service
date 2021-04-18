@@ -77,7 +77,6 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
         RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
         redisTokenStore.setPrefix(Auths.REDIS_AUTH_TOKEN_PREFIX);
 //        redisTokenStore.setSerializationStrategy(new Oauth2JsonSerializationStrategy());
-//        JdbcTokenStore jdbcTokenStore = new JdbcTokenStore(dataSource);
         return redisTokenStore;
     }
 
