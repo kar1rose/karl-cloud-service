@@ -31,7 +31,7 @@ spring:
         - id: mcp-purchase
           uri: lb://mcp-purchase
           predicates:
-#            - Method=GET,POST
+            #            - Method=GET,POST
             - Path=/purchase/**
           filters:
             - StripPrefix=1
