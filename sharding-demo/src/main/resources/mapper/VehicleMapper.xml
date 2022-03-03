@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.karl.sh.sharding.demo.mapper.VehicleMapper">
+
+
+    <select id="selectByVehicleId" resultType="java.util.Map">
+        select vi.truck_info_id, vi.car_num, vi.car_type, vri.organization_name,vri.begin_date,vri.end_date
+        from vehicle_info vi
+                 join vehicle_rental_info vri on vi.truck_info_id = vri.truck_info_id
+        where vi.truck_info_id = #{id}
+    </select>
+</mapper>
