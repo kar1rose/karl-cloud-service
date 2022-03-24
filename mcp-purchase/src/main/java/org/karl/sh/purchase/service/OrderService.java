@@ -3,21 +3,19 @@ package org.karl.sh.purchase.service;
 import org.karl.sh.core.templates.API_RESULT_CODE;
 import org.karl.sh.core.templates.ApiResult;
 import org.karl.sh.core.utils.SnowFlake;
+import org.karl.sh.purchase.client.SysService;
 import org.karl.sh.purchase.mapper.PurchaseOrderMapper;
 import org.karl.sh.purchase.model.PurchaseOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 

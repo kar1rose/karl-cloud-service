@@ -2,11 +2,7 @@ package org.karl.sh.core.utils;
 
 import com.google.common.base.Preconditions;
 import com.google.common.hash.Funnel;
-import com.google.common.hash.Funnels;
 import com.google.common.hash.Hashing;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 /**
  * @author KARL ROSE

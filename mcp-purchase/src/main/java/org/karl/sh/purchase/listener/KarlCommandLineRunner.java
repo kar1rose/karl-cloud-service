@@ -1,13 +1,9 @@
 package org.karl.sh.purchase.listener;
 
-import org.karl.sh.purchase.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.Future;
 
 /**
  * 异步监听
