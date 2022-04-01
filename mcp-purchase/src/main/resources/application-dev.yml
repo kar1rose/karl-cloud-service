@@ -1,58 +1,55 @@
 spring:
-  datasource:
-    druid:
-      url: jdbc:mysql://139.224.83.117/karl?characterEncoding=utf8&useUnicode=true&useSSL=false
-      username: root
-      password: XYuqINlJOlyn3VRAWuBMeTrk41OsZ15Vn8R7LeaLKyXaOWhjpoDLWNawFYqfX+dx9jSUBL/UXj3YBloteji0xQ==
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      initial-size: 20
-      max-active: 200
-      min-idle: 5
-      max-wait: 60000
-      pool-prepared-statements: false
-      max-pool-prepared-statement-per-connection-size: 20
-      validation-query: SELECT 1 FROM DUAL
-      validation-query-timeout: 30000
-      test-on-borrow: false
-      test-on-return: false
-      test-while-idle: true
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
-      filters: stat,wall,slf4j
-      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJacvSK2RwuPljHHxon7i3+LE1Zw7ox/YCjVcMpxqTEShOE4BdqUPiWFh72TUhw6k+m+Sx0PzZQAiTntruNmvi8CAwEAAQ==;
-      filter:
-        config:
-          enabled: true
-      stat-view-servlet:
-        login-username: admin
-        login-password: admin
-        allow: 127.0.0.1
-        reset-enable: false
-        url-pattern:
-  #        deny:
-  cache:
-    type: redis
+    datasource:
+        druid:
+            url: jdbc:mysql://139.224.83.117/kar1rose?characterEncoding=utf8&useUnicode=true&useSSL=false
+            username: root
+            password: XYuqINlJOlyn3VRAWuBMeTrk41OsZ15Vn8R7LeaLKyXaOWhjpoDLWNawFYqfX+dx9jSUBL/UXj3YBloteji0xQ==
+            driver-class-name: com.mysql.cj.jdbc.Driver
+            initial-size: 20
+            max-active: 200
+            min-idle: 5
+            max-wait: 60000
+            pool-prepared-statements: false
+            max-pool-prepared-statement-per-connection-size: 20
+            validation-query: SELECT 1 FROM DUAL
+            validation-query-timeout: 30000
+            test-on-borrow: false
+            test-on-return: false
+            test-while-idle: true
+            time-between-eviction-runs-millis: 60000
+            min-evictable-idle-time-millis: 300000
+            filters: stat,wall,slf4j
+            connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJacvSK2RwuPljHHxon7i3+LE1Zw7ox/YCjVcMpxqTEShOE4BdqUPiWFh72TUhw6k+m+Sx0PzZQAiTntruNmvi8CAwEAAQ==;
+            filter:
+                config:
+                    enabled: true
+            stat-view-servlet:
+                login-username: admin
+                login-password: admin
+                allow: 127.0.0.1
+                reset-enable: false
+                url-pattern:
+    cache:
+        type: redis
 
-mybatis:
-  type-aliases-package: org.karl.sh.provider.model
-  mapper-locations: classpath:mapper/**/*Mapper.xml
-  check-config-location: true
-
-
-#暴露监控
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-
-logging:
-  level:
-    root: info
-    org.apache.http: error
-    com.alibaba.nacos: error
+rocketmq:
+    producer:
+        isOnOff: on
+        groupName: ${spring.application.name}
+        nameServerAddr: 139.224.83.117:9876
+        maxMessageSize: 4096
+        sendMsgTimeout: 3000
+        retryTimesWhenSendFailed: 0
+    consumer:
+        isOnOff: on
+        groupName: ${spring.application.name}
+        nameServerAddr: 139.224.83.117:9876
+        topics: KarlTopic
+        consumeThreadMin: 20
+        consumeThreadMax: 64
+        consumeMessageBatchMaxSize: 1
 
 snowflake:
-  key:
-    dataId: 20
-    machineId: 20
+    key:
+        dataId: 20
+        machineId: 20
