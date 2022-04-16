@@ -1,57 +1,33 @@
 package org.karl.sh.purchase.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 /**
  * @author KARL ROSE
  * @date 2020/8/25 14:18
  **/
-public class PurchaseOrder {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@TableName("purchase_order")
+public class PurchaseOrder{
 
+    /**订单号*/
+    @TableId(type = IdType.AUTO)
     private String orderId;
+    /**下单时间*/
     private Date datetime;
+    /**状态*/
     private boolean state;
     private Integer userId;
 
-    public PurchaseOrder(String orderId, Date datetime, boolean state, Integer userId) {
-        this.orderId = orderId;
-        this.datetime = datetime;
-        this.state = state;
-        this.userId = userId;
-    }
-
-    public PurchaseOrder() {
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-
-    public Date getDatetime() {
-        return datetime;
-    }
-
-    public void setDatetime(Date datetime) {
-        this.datetime = datetime;
-    }
-
-    public boolean isState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 }

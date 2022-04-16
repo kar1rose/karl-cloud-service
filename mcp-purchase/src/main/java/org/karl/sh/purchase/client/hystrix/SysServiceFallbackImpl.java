@@ -1,11 +1,11 @@
-package org.karl.sh.purchase.service.hystrix;
+package org.karl.sh.purchase.client.hystrix;
 /**
  * Created by KARL_ROSE on 2020/2/29 10:11
  */
 
 
 import org.karl.sh.core.templates.ApiResult;
-import org.karl.sh.purchase.service.SysService;
+import org.karl.sh.purchase.client.SysService;
 import org.springframework.stereotype.Component;
 
 /**

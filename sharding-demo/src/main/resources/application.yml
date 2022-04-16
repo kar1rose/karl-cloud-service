@@ -1,0 +1,24 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: db1,db2
+      db1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://139.224.83.117:3306/db1
+        username: root
+        password: P@ssw0rd@2021
+      db2:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://139.224.83.117:3306/db2
+        username: root
+        password: P@ssw0rd@2021
+    rules:
+      sharding:
+        tables:
+          vehicle_info:
+            actual-data-nodes: db$->{1}.truck_info
+          vehicle_rental_info:
+            actual-data-nodes: db$->{2}.truck_rental_info
+

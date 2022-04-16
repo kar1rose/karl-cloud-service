@@ -1,0 +1,22 @@
+mybatis:
+    type-aliases-package: org.karl.sh.provider.model
+    mapper-locations: classpath:mapper/**/*Mapper.xml
+    check-config-location: true
+
+
+#暴露监控
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+
+logging:
+    level:
+        root: info
+        org.apache.http: error
+        com.alibaba.nacos: error
+
+feign:
+    hystrix:
+        enabled: true

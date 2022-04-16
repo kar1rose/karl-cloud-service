@@ -1,23 +1,24 @@
 package org.karl.sh.purchase.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.karl.sh.core.templates.API_RESULT_CODE;
 import org.karl.sh.core.templates.ApiResult;
 import org.karl.sh.core.utils.SnowFlake;
+import org.karl.sh.purchase.client.SysService;
 import org.karl.sh.purchase.mapper.PurchaseOrderMapper;
 import org.karl.sh.purchase.model.PurchaseOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -26,7 +27,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @date 2020/8/25 14:49
  **/
 @Service
-public class OrderService {
+public class OrderService extends ServiceImpl<PurchaseOrderMapper, PurchaseOrder> implements IService<PurchaseOrder> {
 
     private static final Logger logger = LoggerFactory.getLogger("订单service");
 
@@ -75,6 +76,12 @@ public class OrderService {
         } catch (InterruptedException e) {
             logger.error(e.getMessage());
         }
+    }
+
+    public PurchaseOrder query(String orderId) {
+        LambdaQueryWrapper<PurchaseOrder> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(PurchaseOrder::getOrderId, orderId);
+        return baseMapper.selectOne(wrapper);
     }
 
 

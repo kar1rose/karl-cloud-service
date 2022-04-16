@@ -97,6 +97,12 @@
                 <artifactId>rocketmq-client</artifactId>
                 <version>${rocketmq.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.5.1</version>
+            </dependency>
             <!--<dependency>
                 <groupId>com.alibaba.rocketmq</groupId>
                 <artifactId>rocketmq-client</artifactId>
@@ -122,7 +128,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.49</version>
+            <version>1.2.78</version>
         </dependency>
 
         <dependency>

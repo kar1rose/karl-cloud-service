@@ -1,7 +1,7 @@
-package org.karl.sh.purchase.service;
+package org.karl.sh.purchase.client;
 
 import org.karl.sh.core.templates.ApiResult;
-import org.karl.sh.purchase.service.hystrix.SysServiceFallbackImpl;
+import org.karl.sh.purchase.client.hystrix.SysServiceFallbackImpl;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
