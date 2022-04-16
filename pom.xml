@@ -25,6 +25,9 @@
     </parent>
 
     <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
         <redisson.version>3.10.7</redisson.version>
         <mysql-connector.version>8.0.21</mysql-connector.version>
         <cloud.version>Greenwich.RELEASE</cloud.version>
