@@ -16,6 +16,7 @@
         <module>mcp-notify</module>
         <module>mcp-purchase</module>
         <module>mcp-warehouse</module>
+        <module>sharding-demo</module>
     </modules>
 
     <parent>

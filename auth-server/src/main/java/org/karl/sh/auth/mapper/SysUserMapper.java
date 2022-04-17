@@ -1,6 +1,7 @@
 package org.karl.sh.auth.mapper;
 
 import org.karl.sh.core.beans.sys.SysUser;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author KARL ROSE
